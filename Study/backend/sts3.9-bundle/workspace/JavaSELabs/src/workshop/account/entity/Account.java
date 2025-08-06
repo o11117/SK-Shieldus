@@ -5,6 +5,10 @@ public class Account {
 	private String acctId;
 	private int balance;
 	
+	
+	public Account() {
+		System.out.println("기본생성자 호출됨");
+	}
 //	public void setBalance(int balance) {
 //		this.balance = balance;
 //	}
