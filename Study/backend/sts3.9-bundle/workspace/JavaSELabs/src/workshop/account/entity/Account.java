@@ -6,17 +6,27 @@ public class Account {
 	private int balance;
 	
 	
-	public Account() {
-		System.out.println("기본생성자 호출됨");
-	}
-//	public void setBalance(int balance) {
-//		this.balance = balance;
+//	public Account() {
+//		System.out.println("기본생성자 호출됨");
 //	}
+	
+	public Account(String custId, String acctId, int balance) {
+		super();
+//		this.custId = custId;
+//		this.acctId = acctId;
+		setCustId(custId);
+		setAcctId(acctId);
+		this.balance = balance;
+	}
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
 	
 	public int getBalance() {
 		return balance;
 	}
-	
+
+
 	public String getCustId() {
 		return custId;
 	}
