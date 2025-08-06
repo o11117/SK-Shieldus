@@ -1,0 +1,2 @@
+num1, num2 = int(input('첫 번째 숫자를 입력하세요: ')), int(input('두 번째 숫자를 입력하세요: '))
+print(f'{num1} + {num2} = {num1 + num2}\n{num1} - {num2} = {num1 - num2}\n{num1} * {num2} = {num1 * num2}\n{num1} / {num2} = {num1 / num2 if num2 != 0 else "0으로 나눌 수 없습니다.":.1f}')

@@ -1,0 +1,5 @@
+print('이름을 입력하세요:')
+name = input()
+print('나이를 입력하세요:')
+age = int(input())
+print(f'안녕하세요! 제 이름은 {name}이고, 나이는 {age}살입니다.')

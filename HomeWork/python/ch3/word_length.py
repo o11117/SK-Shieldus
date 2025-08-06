@@ -1,0 +1,2 @@
+word_list=['cat', 'elephant', 'dog', 'butterfly', 'ant']
+print(f'단어 목록: {word_list}\n가장 긴 단어: {max(word_list, key=len)}({len(max(word_list, key=len))}글자)\n가장 짧은 단어: {min(word_list, key=len)}({len(min(word_list, key=len))}글자)')

@@ -1,0 +1,5 @@
+print('상품 가격을 입력하세요:')
+price = int(input())
+print('할인율을 입력하세요 (%):')
+discount_rate = int(input())
+print(f'원래 가격: {price}원\n할인율: {discount_rate}%\n할인 금액: {price * discount_rate/100:.0f}원\n최종 가격: {price * (1 - discount_rate / 100):.0f}원')

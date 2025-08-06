@@ -1,0 +1,8 @@
+print('첫 번째 숫자를 입력하세요: ')
+n1 = int(input())
+print('두 번째 숫자를 입력하세요: ')
+n2 = int(input())
+print(f'{n1} + {n2} = {n1 + n2}')
+print(f'{n1} - {n2} = {n1 - n2}')
+print(f'{n1} * {n2} = {n1 * n2}')
+print(f'{n1} / {n2} = {n1 / n2:.2f}')
