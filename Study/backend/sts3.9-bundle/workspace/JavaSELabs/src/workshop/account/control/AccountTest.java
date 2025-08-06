@@ -32,6 +32,10 @@ public class AccountTest {
 		account2.withdraw(10000);
 		System.out.println("ÀÜ¾× = " + account2.getBalance());
 
+		System.out.println("5000¿ø Ãâ±İ");
+		account2.withdraw(5000);
+		System.out.println("ÀÜ¾× = " + account2.getBalance());
+
 	}
 
 }
