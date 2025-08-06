@@ -1,0 +1,51 @@
+package mylab.student.entity;
+
+import mylab.student.exception.InvalidGradeException;
+
+public class Student {
+//	필드: 학번(studentId), 이름(name), 전공(major), 학년(grade) → 모두 private
+	private String studentId;
+	private String name;
+	private String major;
+	private int grade;
+	
+	public Student(String studentId, String name, String major, int grade) {
+		super();
+		this.studentId = studentId;
+		this.name = name;
+		this.major = major;
+		this.grade = grade;
+	}
+	
+	public String getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getMajor() {
+		return major;
+	}
+	public void setMajor(String major){
+		this.major = major;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) throws InvalidGradeException{
+		if (grade > 4 || grade < 1) {
+			String errMessage = String.format("학년은 1~4 사이여야 합니다.");
+			throw new InvalidGradeException(errMessage);
+		}
+		else
+		this.grade = grade;
+	}
+	
+	
+}
