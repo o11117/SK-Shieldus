@@ -6,9 +6,9 @@ public class Account {
 	private int balance;
 	
 	
-//	public Account() {
-//		System.out.println("기본생성자 호출됨");
-//	}
+	public Account() {
+		System.out.println("기본생성자 호출됨");
+	}
 	
 	public Account(String custId, String acctId, int balance) {
 		super();
