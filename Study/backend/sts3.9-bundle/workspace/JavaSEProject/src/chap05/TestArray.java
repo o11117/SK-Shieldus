@@ -17,6 +17,10 @@ public class TestArray {
 		 System.out.println( "2. reference 변수 배열 생성 가능" );
 		 MyDate[ ] dates = null;
 		 dates = new MyDate[10];
+		 System.out.println(dates);
+		 //dates 변수는 MyDate[] 타입
+		 //dates[0] 변수는 MyDate 타입
+		 
 		 dates[0] = new MyDate( 5, 2, 2007 );
 		 dates[1] = new MyDate( 6, 2, 2007 );
 		 dates[2] = new MyDate( 7, 2, 2007 );
@@ -31,11 +35,17 @@ public class TestArray {
 		 System.out.println( "1일 : " + dates[0].getDay() );
 		 
 		 //	access
+		 System.out.println( "변경 전2일 : " + dates[1].getDay() );
 		 dates[1].setDay( 4 );
-		 System.out.println( "2일 : " + dates[1].getDay() );
+		 System.out.println( "변경 후2일 : " + dates[1].getDay() );
 
 		 for( int inx = 0; inx < dates.length; inx++ ){
 			 dates[inx].print();
+		 }
+		 
+		 //enhanced for loop
+		 for(MyDate date:dates) {
+			 date.print();
 		 }
 
 		//생성과 동시에 초기화 가능
