@@ -42,6 +42,12 @@ public class PersonEntity {
 
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
+		if(ssn != null) {
+		if (ssn.charAt(6) == '1' || ssn.charAt(6) == '3')
+			setGender('³²');
+		else if (ssn.charAt(6) == '2' || ssn.charAt(6) == '4')
+			setGender('¿©');
+		}
 	}
 
 	public String getAddress() {
