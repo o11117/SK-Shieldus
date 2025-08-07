@@ -1,5 +1,7 @@
 package workshop.person.control;
 
+import java.util.Scanner;
+
 import workshop.person.entity.PersonEntity;
 
 public class PersonManager {
@@ -15,10 +17,24 @@ public class PersonManager {
 		personMgr.fillPersons(persons);
 		
 		personMgr.showPerson(persons);
+		
+		//Scanner object
+		Scanner scanner = new Scanner(System.in);
+		String inputValue = scanner.next();
+		char gender = inputValue.charAt(0); //String => char
+		scanner.close();
+		
+		String message = String.format("성별 : '%s' (은)는  %d 명 입니다. ",gender,personMgr.findByGender(persons, gender));
+		System.out.println(message);
 	}
 	
 	public int findByGender(PersonEntity[] persons, char gender) {
 		int genderCnt = 0;
+		for (PersonEntity person : persons) {
+			if(person.getGender() == gender) {
+				genderCnt++;
+			}
+		}
 		return genderCnt;
 	}
 
