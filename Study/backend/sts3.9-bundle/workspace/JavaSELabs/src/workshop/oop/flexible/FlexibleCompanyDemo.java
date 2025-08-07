@@ -7,7 +7,13 @@ public class FlexibleCompanyDemo {
         MereClerk mereClerk2 = new MereClerk("영희", 100);
         Manager manager = new Manager("홍길동", 200);
         
-        
+        // 자식 mgr = new 자식
+        Manager mgr1 = new Manager("둘리", 200,"HR");
+        Employee itMgr = new Manager("길동",250, "IT");
+        		
+        		
+        		
+        		
         System.out.println("현재 월급입니다.");
         
         System.out.println(mereClerk1.getName() + "의 현재 월급은 " + mereClerk1.getSalary() + " 만원 입니다.");
