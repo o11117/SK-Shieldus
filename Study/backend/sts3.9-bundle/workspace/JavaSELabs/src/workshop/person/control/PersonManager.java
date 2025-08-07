@@ -16,7 +16,7 @@ public class PersonManager {
 		System.out.println("==> 이름을 입력하세요!");
 		String name = scanner.next();
 		
-		System.out.println(String.format("성별은 %s 이름은 %s \n", gender, name));
+		System.out.println(String.format("==> 입력하신 성별은 %s, 이름은 %s \n", gender, name));
 
 		PersonManager personMgr = new PersonManager();
 		
@@ -31,7 +31,8 @@ public class PersonManager {
 		
 		String message = String.format("성별 : '%s' (은)는  %d 명 입니다. ",gender,personMgr.findByGender(persons, gender));
 		System.out.println(message);
-
+		personMgr.showPerson(persons, name);
+		
 		scanner.close();
 	}
 	
@@ -49,6 +50,15 @@ public class PersonManager {
 		//for loop로 순회하면서 print
 		for (PersonEntity person:persons) {
 			System.out.println("[이름 ] " + person.getName() + "\t [성별] " + person.getGender() + "\t [전화번호] " + person.getPhone());
+		}
+	}
+	
+	public void showPerson(PersonEntity[] persons, String name) {
+		for (PersonEntity person:persons) {
+			if (person.getName().equals(name)){
+				System.out.println("[이름 ] " + person.getName() + "\t [성별] " + person.getGender() + "\t [전화번호] " + person.getPhone());
+				break;
+			}
 		}
 	}
 
