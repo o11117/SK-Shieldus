@@ -35,6 +35,8 @@ public class ManageBook {
 		else if (pub instanceof ReferenceBook) {
 			rate = 0.9; //10% dc
 		}
+		//가격 변경
+		pub.setPrice((int)(pub.getPrice() * rate));
 	}
 
 }
