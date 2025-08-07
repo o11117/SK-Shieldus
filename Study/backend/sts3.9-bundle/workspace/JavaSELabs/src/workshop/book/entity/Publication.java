@@ -49,5 +49,10 @@ package workshop.book.entity;
 			this.price = price;
 		}
 		
+		@Override
+		public String toString() {
+			return this.title;
+		}
+		
 		
 }
