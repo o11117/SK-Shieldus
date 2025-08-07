@@ -21,5 +21,20 @@ public class ManageBook {
 			System.out.println(pub); //pub.toString()
 		}
 	}
+	
+	//Polymorphic Argument (다형적 변수)
+	public static void modifyPrice(Publication pub) {
+		//Magazine이면 40%, Novel이면 20%, ReferenceBook 이면 10% 
+		double rate = 0.0;
+		if (pub instanceof Magazine) {
+			rate = 0.6; //40% dc
+		}
+		else if (pub instanceof Novel) {
+			rate = 0.8; //20% dc
+		}
+		else if (pub instanceof ReferenceBook) {
+			rate = 0.9; //10% dc
+		}
+	}
 
 }
