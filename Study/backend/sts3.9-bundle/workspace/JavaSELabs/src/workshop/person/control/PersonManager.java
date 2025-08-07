@@ -7,25 +7,32 @@ import workshop.person.entity.PersonEntity;
 public class PersonManager {
 
 	public static void main(String[] args) {
-		PersonManager personMgr = new PersonManager();
+		//Scanner object
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("==> 성별 정보를 입력하세요!");
+		String inputValue = scanner.next();
+		char gender = inputValue.charAt(0); //String => char
 		
-		personMgr.printTitle("인물 정보 조회 시스템");
+		System.out.println("==> 이름을 입력하세요!");
+		String name = scanner.next();
+		
+		System.out.println(String.format("성별은 %s 이름은 %s \n", gender, name));
+
+		PersonManager personMgr = new PersonManager();
 		
 		//배열선언 및 초기화
 		PersonEntity[] persons = new PersonEntity[10];
 		//persons 변수는 PersonEntity[] type, persons[0]은 PersonEntity type
 		personMgr.fillPersons(persons);
 		
+
+		personMgr.printTitle("인물 정보 조회 시스템");
 		personMgr.showPerson(persons);
-		
-		//Scanner object
-		Scanner scanner = new Scanner(System.in);
-		String inputValue = scanner.next();
-		char gender = inputValue.charAt(0); //String => char
-		scanner.close();
 		
 		String message = String.format("성별 : '%s' (은)는  %d 명 입니다. ",gender,personMgr.findByGender(persons, gender));
 		System.out.println(message);
+
+		scanner.close();
 	}
 	
 	public int findByGender(PersonEntity[] persons, char gender) {
