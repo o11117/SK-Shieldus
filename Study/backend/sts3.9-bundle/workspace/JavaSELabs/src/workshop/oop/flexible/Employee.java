@@ -22,7 +22,7 @@ public abstract class Employee {
 	}
 
 
-
+	//Concrete Method
 	public String getName() {
 	    return this.name;
 	}
@@ -30,6 +30,6 @@ public abstract class Employee {
 	public double getSalary() {
 	    return this.salary;
 	}
-
+	//Abstract Method
 	public abstract void manageSalary(double rate);
 }
