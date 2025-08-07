@@ -10,5 +10,12 @@ public class Magazine extends Publication {
 		super(title, publishingDate, page, price);
 		this.publishingPeriod = publishingPeriod;
 	}
-
+	public String getPublishingPeriod() {
+		return publishingPeriod;
+	}
+	
+	public void setPublishingPeriod(String publishingPeriod) {
+		this.publishingPeriod = publishingPeriod;
+	}
+	
 }
