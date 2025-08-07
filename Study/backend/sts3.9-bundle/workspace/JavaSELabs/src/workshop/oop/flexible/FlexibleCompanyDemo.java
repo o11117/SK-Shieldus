@@ -8,7 +8,7 @@ public class FlexibleCompanyDemo {
         Manager manager = new Manager("홍길동", 200);
         
         // 자식 mgr = new 자식
-        Manager mgr1 = new Manager("둘리", 200,"HR");
+        Manager hrMgr = new Manager("둘리", 200,"HR");
         Employee itMgr = new Manager("길동",250, "IT");
         		
         		
