@@ -1,6 +1,6 @@
 package workshop.oop.flexible;
 
-public class InFlexibleCompanyDemo {
+public class FlexibleCompanyDemo {
     public static void main(String[] args) {
         
         MereClerk mereClerk1 = new MereClerk("Ã¶¼ö", 100);
