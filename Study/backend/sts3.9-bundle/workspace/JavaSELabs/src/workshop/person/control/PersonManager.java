@@ -12,15 +12,19 @@ public class PersonManager {
 		//배열선언 및 초기화
 		PersonEntity[] persons = new PersonEntity[10];
 		//persons 변수는 PersonEntity[] type, persons[0]은 PersonEntity type
-		personMgr.fillpersons(persons);
+		personMgr.fillPersons(persons);
 		
+		personMgr.showPerson(persons);
+	}
+
+	public void showPerson(PersonEntity[] persons) {
 		//for loop로 순회하면서 print
 		for (PersonEntity person:persons) {
 			System.out.println(person.getName() + " " + person.getGender());
 		}
 	}
 
-	public void fillpersons(PersonEntity[] persons) {
+	public void fillPersons(PersonEntity[] persons) {
 		persons[0] = new PersonEntity("이성호","7212121028102", "인천 계양구", "032-392-2932");
 		persons[1] = new PersonEntity("김하늘","7302132363217", "서울 강동구", "02-362-1932");
 		persons[2] = new PersonEntity("박영수","7503111233201", "서울 성북구", "02-887-1542");
