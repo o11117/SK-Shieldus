@@ -14,6 +14,10 @@ public class Manager extends Employee {
     	this.dept = dept;
     }
     
+    public String getDept() {
+		return dept;
+	}
+    
     public void manageSalary(double rate) {
         salary = salary+ salary*(rate/100);
         salary += 20; // 20만원을 추가로 받는다.
