@@ -20,6 +20,9 @@ public class HelloJUnit5Test {
 		System.out.println(helloById == helloByType);
 		//Assertions.assertSame() 사용
 		assertSame(helloById, helloByType);
+		
+//		<property name="name" value="스프링"/> 설정을 테스트 한 것임
+		assertEquals("Hello 스프링", helloByType.sayHello());
 	}
 	
 }
