@@ -23,6 +23,12 @@ public class HelloJUnit5Test {
 		
 //		<property name="name" value="스프링"/> 설정을 테스트 한 것임
 		assertEquals("Hello 스프링", helloByType.sayHello());
+		
+		//<property name="printer" ref="stringPrinter"/> 설정을 테스트하기
+		helloByType.print();
+		
+		//StringPrinter 스프링빈을 요청하기
+		Printer printer = context.getBean("stringPrinter", Printer.class);
 	}
 	
 }
