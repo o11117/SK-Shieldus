@@ -7,4 +7,8 @@
 
 	<!-- StringPrinter 클래스를 Bean으로 등록 -->
 	<bean id="stringPrinter" class="myspring.di.xml.StringPrinter" />
+	
+	<!-- ConsolePrinter 클래스를 Bean으로 등록 -->
+	<bean id="consolePrinter" class="myspring.di.xml.ConsolePrinter" />
+	
 </beans>
