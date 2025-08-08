@@ -6,6 +6,8 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 //static import
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+
 public class HelloJUnit5Test {
 
 	ApplicationContext context;
