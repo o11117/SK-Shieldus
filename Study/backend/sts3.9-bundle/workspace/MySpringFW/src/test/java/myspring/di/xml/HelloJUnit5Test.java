@@ -8,10 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class HelloJUnit5Test {
 
-	@Test
-	void helloBean() {
+	ApplicationContext context;
+	
+	@BeforeEach
+	void createContainer() {
 		//1. Container 객체 생성
 		ApplicationContext context = new GenericXmlApplicationContext("classpath:spring-beans.xml");
+	}
+	
+	@Test
+	void helloBean() {
 		//2. Container가 생성한 Hello 스프링빈을 요청하기
 		Hello helloById = (Hello)context.getBean("hello");
 		Hello helloByType = context.getBean("hello", Hello.class);
