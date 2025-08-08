@@ -12,7 +12,12 @@ public class HelloJUnit5Test {
 		ApplicationContext context = new GenericXmlApplicationContext("classpath:spring-beans.xml");
 		//2. Container가 생성한 Hello 스프링빈을 요청하기
 		Hello helloById = (Hello)context.getBean("hello");
-		Hello helloByType = context.getBean("hello", Hello.class)
+		Hello helloByType = context.getBean("hello", Hello.class);
+		
+		//주소를 비교해서 Singleton 인지 확인하기
+		System.out.println(helloById == helloByType);
+		
+		
 	}
 	
 }
