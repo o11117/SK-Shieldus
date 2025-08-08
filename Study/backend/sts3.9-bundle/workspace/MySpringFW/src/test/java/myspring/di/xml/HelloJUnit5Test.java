@@ -29,6 +29,7 @@ public class HelloJUnit5Test {
 		
 		//StringPrinter 스프링빈을 요청하기
 		Printer printer = context.getBean("stringPrinter", Printer.class);
+		assertEquals("Hello 스프링", printer.toString());
 	}
 	
 }
