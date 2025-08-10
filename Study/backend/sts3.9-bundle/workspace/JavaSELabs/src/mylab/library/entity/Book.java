@@ -1,6 +1,6 @@
 package mylab.library.entity;
 
-public class Book extends Library {
+public class Book {
 	private String title;
 	private String author;
 	private String isbn;
@@ -8,10 +8,11 @@ public class Book extends Library {
 	private boolean isAvailable;
 	
 	public Book() {
+		this.isAvailable = true;
 	}
 
 	public Book(String title, String author, String isbn, int publishYear) {
-		super();
+		this();
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
@@ -55,15 +56,23 @@ public class Book extends Library {
 	}
 	
 	public boolean checkOut() {
-		
+		if (isAvailable == true) {
+		isAvailable = false;
+		return true;
+		}
+		return false;
 	}
 	
 	public void returnBook() {
-		
+		isAvailable = true;
 	}
 	
 	public String toString() {
-		
+		return "책 제목: " + title +
+                " / 저자: " + author +
+                " / ISBN: " + isbn +
+                " / 출판년도: " + publishYear +
+                " / 대출 가능 여부: " + (isAvailable ? "가능" : "불가");
 	}
 
 	
