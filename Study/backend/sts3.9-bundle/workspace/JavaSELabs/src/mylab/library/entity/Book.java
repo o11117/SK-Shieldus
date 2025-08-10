@@ -72,7 +72,7 @@ public class Book {
                 " / 저자: " + author +
                 " / ISBN: " + isbn +
                 " / 출판년도: " + publishYear +
-                " / 대출 가능 여부: " + (isAvailable ? "가능" : "불가");
+                " / 대출 가능 여부: " + (isAvailable ? "가능" : "대출 중");
 	}
 
 	

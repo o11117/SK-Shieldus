@@ -8,6 +8,18 @@ public class LibraryManagementSystem {
 	public static void main(String[] args) {
 		Library library = new Library("중앙 도서관");
 		addSampleBooks(library);
+		System.out.println("===== " + library.getName() + " =====");
+		showStatus(library);
+		testFindBook(library);
+		testCheckOut(library);
+		testReturn(library);
+		displayAvailableBooks(library);
+	}
+
+	public static void showStatus(Library library) {
+		System.out.println("전체 도서 수: " + library.getTotalBooks());
+		System.out.println("대출 가능 도서 수: " + library.getAvailableBooksCount());
+		System.out.println("대출 중인 도서 수: " + library.getBorrowedBooksCount());
 	}
 	
 	private static void addSampleBooks(Library library) {
@@ -19,20 +31,51 @@ public class LibraryManagementSystem {
         library.addBook(new Book("자바의 정석", "남궁성", "978-89-01-14077-4", 2019));
 }
 
-	private static void testFindBook() {
+	private static void testFindBook(Library library) {
+		String title = "자바의 정석";
+		String author = "Robert C. Martin";
 		
+		System.out.println("===== 도서 검색 테스트 =====");
+		System.out.println("제목으로 검색 결과: ");
+		System.out.println(library.findBookByTitle(title));
+		System.out.println("저자로 검색 결과: ");
+		System.out.println(library.findBooksByAuthor(author));
 	}
 	
-	private static void testCheckOut() {
+	private static void testCheckOut(Library library) {
+		String isbn = "978-89-01-14077-4";
+		System.out.println("===== 도서 대출 테스트 =====");
 		
+		if (library.checkOutBook(isbn) == true) {
+			System.out.println("도서 대출 성공!");
+			System.out.println("대출된 도서 정보:");
+			System.out.println(library.findBookByISBN(isbn));
+		} else {
+	        System.out.println("도서 대출 실패! (이미 대출 중이거나 없음)");
+		}
+		showStatus(library);
 	}
 	
-	private static void testReturn() {
+	private static void testReturn(Library library) {
 		
+		System.out.println("===== 도서 반납 테스트 =====");
+		String isbn = "978-89-01-14077-4";
+
+		if (library.returnBook(isbn) == true) {
+			System.out.println("도서 반납 성공!");
+			System.out.println("반납된 도서 정보:");
+			System.out.println(library.findBookByISBN(isbn));
+		} else {
+	        System.out.println("도서 반납 실패!");
+		}
+		showStatus(library);
 	}
 	
-	private static void displayAvailableBooks() {
-	
+	private static void displayAvailableBooks(Library library) {
+		System.out.println("===== 대출 가능한 도서 목록  =====");
+		for (Book book:library.getAvailableBooks()) {
+			System.out.println(book + "\n------------------------");
+		}
 	}
 	
 }
