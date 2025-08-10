@@ -1,5 +1,7 @@
 package mylab.bank.entity;
 
+import mylab.bank.exception.InsufficientBalanceException;
+
 public class Account {
 	private String accountNumber;
 	private String ownerName;
@@ -24,14 +26,19 @@ public class Account {
 	}
 	
 	public void deposit(double amount) {
-		
+		balance += amount;
 	}
 	
-	public void throws InsufficientBalanceException(double amount) {
-		
+	public void withdraw (double amount) throws InsufficientBalanceException {
+		if (balance < amount) {
+            throw new InsufficientBalanceException("ÀÜ¾× ºÎÁ·: ÇöÀç ÀÜ¾× " + balance + "¿ø");
+        }
+        balance -= amount;
 	}
 	
-	public String toString() {
-		
-	}
+	@Override
+    public String toString() {
+        return String.format("°èÁÂ¹øÈ£: %s , ¼ÒÀ¯ÀÚ: %s , ÀÜ¾×: %.1f¿ø ,", 
+                              accountNumber, ownerName, balance);
+    }
 }

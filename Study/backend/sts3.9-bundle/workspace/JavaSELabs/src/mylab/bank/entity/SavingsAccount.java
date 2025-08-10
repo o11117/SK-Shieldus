@@ -14,10 +14,12 @@ public class SavingsAccount extends Account {
 	}
 	
 	public void applyInterest() {
-		
+		 double interest = getBalance() * (interestRate / 100);
+	     deposit(interest);
 	}
 	
-	public String toString() {
-		
-	}
+	@Override
+    public String toString() {
+        return String.format("%s ÀÌÀÚÀ²: %.1f%%", super.toString(), interestRate);
+    }
 }
