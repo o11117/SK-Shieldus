@@ -18,7 +18,7 @@ public class Library {
 	
 	public void addBook(Book book) {
 		books.add(book);
-		System.out.println("도서가 추가되었습니다: " + book.getTitle());
+		System.out.println(" 도서가 추가되었습니다: " + book.getTitle());
 	}
 	
 	public Book findBookByTitle(String title) {
