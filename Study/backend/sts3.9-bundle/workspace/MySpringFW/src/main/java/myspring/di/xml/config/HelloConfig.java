@@ -21,8 +21,8 @@ public class HelloConfig {
 	Environment environment;
 	
 	@Bean
-	public List<String> nameList(){
-		return Arrays.asList("Java", "SpringFW", "SpringBoot");
+	public List<String> nameList() {
+	    return Arrays.asList("Java", "SpringFW", "SpringBoot");
 	}
 	
 	@Bean
