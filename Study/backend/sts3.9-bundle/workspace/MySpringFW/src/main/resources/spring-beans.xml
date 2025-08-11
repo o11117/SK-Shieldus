@@ -22,7 +22,7 @@
 		<property name="printer" ref="stringPrinter"/>
 	</bean>
 	
-	<!--  HEllo 클래스를 Bean으로 등록 Constructor Injection -->
+	<!--  Hello 클래스를 Bean으로 등록 Constructor Injection -->
 	<bean id = "helloC" class ="myspring.di.xml.Hello">
 		<!-- constructor injection -->
 		<constructor-arg index = "0" value = "생성자"/>
