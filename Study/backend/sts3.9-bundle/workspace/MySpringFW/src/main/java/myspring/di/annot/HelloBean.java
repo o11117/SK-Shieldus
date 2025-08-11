@@ -24,6 +24,7 @@ public class HelloBean {
 	@Resource(name ="${myprinter21}")
 	PrinterBean printer;
 	
+	@Value("Java,SpringFW,SpringBoot")
 	List<String> names;
 	public HelloBean() {
 		System.out.println(this.getClass().getName() + " 생성자가 호출됨");
