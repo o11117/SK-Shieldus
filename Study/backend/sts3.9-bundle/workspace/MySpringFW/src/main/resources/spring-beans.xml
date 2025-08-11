@@ -27,6 +27,5 @@
 		<!-- constructor injection -->
 		<constructor-arg index = "0" value = "생성자"/>
 		<constructor-arg index = "1" ref = "consolePrinter"/>
-	
 	</bean>
 </beans>
