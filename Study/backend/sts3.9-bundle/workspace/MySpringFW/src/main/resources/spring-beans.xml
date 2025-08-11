@@ -26,7 +26,7 @@
 	<bean id = "helloC" class ="myspring.di.xml.Hello">
 		<!-- constructor injection -->
 		<constructor-arg index = "0" value = "생성자"/>
-		<constructor-arg index = "1" value = "consolePrinter"/>
+		<constructor-arg index = "1" ref = "consolePrinter"/>
 	
 	</bean>
 </beans>
