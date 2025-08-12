@@ -12,5 +12,5 @@ public class OrderSpringTest {
         // Print the shopping cart and total price
         System.out.println("Shopping Cart: " + orderService.getShoppingCart());
         System.out.println("Total Price: " + orderService.calculateOrderTotal());
-    }
+    } 
 }
