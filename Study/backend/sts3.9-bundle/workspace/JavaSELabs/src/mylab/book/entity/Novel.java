@@ -28,7 +28,7 @@ public class Novel extends Publication {
     }
     @Override
     public String toString() {
-        return "Novel [제목=" + getTitle() + ", 출판일=" + getPublishDate() + ", 페이지=" + getPage()
-                + ", 가격=" + getPrice() + ", 저자명=" + author + ", 장르=" + genre + "]";
+
+        return super.toString() + "[소설]저자명:" + author + ", " + "장르:" + genre + ", " + getPage() + "쪽, " + getPrice() + "원, 출판일:" + getPublishDate();
     }
 }
