@@ -14,7 +14,7 @@ public class MySpringBoot3ProjectApplication {
 	public static void main(String[] args) {
 
 
-//        SpringApplication.run(MySpringBoot3ProjectApplication.class, args);
+        //SpringApplication.run(MySpringBoot3ProjectApplication.class, args);
         SpringApplication application = new SpringApplication(MySpringBoot3ProjectApplication.class);
         //Application 타입을 변경하기
         application.setWebApplicationType(WebApplicationType.SERVLET);
