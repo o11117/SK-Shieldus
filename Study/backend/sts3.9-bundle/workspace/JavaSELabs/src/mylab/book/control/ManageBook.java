@@ -7,7 +7,7 @@ import mylab.book.entity.ReferenceBook;
 
 public class ManageBook {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
         Publication[] publications = {
                 new Magazine("마이크로소프트", "2007-10-01", 328, 9900, "매월"),
@@ -19,32 +19,37 @@ public class ManageBook {
                 new Novel("작별하지않는다", "2021-09-09", 332, 15120, "한강", "장편소설")
         };
 
+        System.out.println("=== 도서 정보 출력 ===");
+        int idx = 1;
         for (Publication publication : publications) {
-            System.out.println(publication+"이(가) 장바구니에 추가되었습니다.");
-        }
-        System.out.println("===========장바구니 내용============");
-
-        for (Publication publication : publications) {
-            //1부터 시작하는 일련번호를 붙여 출력합니다.
-
-            System.out.println((java.util.Arrays.asList(publications).indexOf(publication) + 1) + ". " + publication.getTitle() + "-" + publication.getPrice());
+            System.out.println(idx++ + ". " + publication);
         }
 
+        System.out.println("=== 가격 변경 ===");
+        int originalPrice = publications[2].getPrice();
+        modifyPrice(publications[2]);
+        int modifiedPrice = publications[2].getPrice();
+        int priceDiff = originalPrice - modifiedPrice;
+        System.out.println("원래 가격: " + originalPrice);
+        System.out.println("변경 후 가격: " + modifiedPrice);
+        System.out.println("차액: " + priceDiff);
 
-	}
+        System.out.println("=== 출판물 통계 분석 ===");
+
+        StatisticsAnalyzer analyzer = new StatisticsAnalyzer();
+        analyzer.printStatistics(publications);
+    }
 
     public static void modifyPrice(Publication publication) {
         int currentPrice = publication.getPrice();
 // instanceof로 실제 객체 타입 확인 후 차별적 할인 적용
         if (publication instanceof Magazine) {
-            publication.setPrice((int)(currentPrice * 0.6)); // 40% 할인
+            publication.setPrice((int) (currentPrice * 0.6)); // 40% 할인
         } else if (publication instanceof Novel) {
-            publication.setPrice((int)(currentPrice * 0.8)); // 20% 할인
+            publication.setPrice((int) (currentPrice * 0.8)); // 20% 할인
         } else if (publication instanceof ReferenceBook) {
-            publication.setPrice((int)(currentPrice * 0.9)); // 10% 할인 }
+            publication.setPrice((int) (currentPrice * 0.9)); // 10% 할인 }
         }
 
-
-
-
     }
+}
