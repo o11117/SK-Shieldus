@@ -35,5 +35,7 @@ public class MyPropsRunner implements ApplicationRunner {
 
         //3. 메서드 레퍼런스
         args.getOptionNames().forEach(System.out::println);
+
+
     }
 }
