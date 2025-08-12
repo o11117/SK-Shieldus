@@ -50,7 +50,7 @@ public class Publication {
 	}
 	
 	public String toString() {
-		return String.format("%s", args);
+		return title;
 	}
 	
 }
