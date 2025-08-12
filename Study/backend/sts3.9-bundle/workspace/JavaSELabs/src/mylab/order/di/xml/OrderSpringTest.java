@@ -1,16 +1,40 @@
 package mylab.order.di.xml;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(locations = "classpath:mylab-order-di.xml")
 public class OrderSpringTest {
-    public static void main(String[] args) {
-        // Load the Spring context from XML configuration
-        org.springframework.context.ApplicationContext context =
-            new org.springframework.context.support.ClassPathXmlApplicationContext("../resources/mylab-order-di.xml");
 
-        // Retrieve the OrderService bean
-        OrderService orderService = context.getBean(OrderService.class);
+    @Autowired
+    @Qualifier("orderService")
+    OrderService orderService;
 
-        // Print the shopping cart and total price
-        System.out.println("Shopping Cart: " + orderService.getShoppingCart());
-        System.out.println("Total Price: " + orderService.calculateOrderTotal());
+    @Autowired
+    @Qualifier("shoppingCart")
+    ShoppingCart shoppingCart;
+
+    @Test
+    void shoppingCartBeanTest() {
+        assertNotNull(shoppingCart);
+        assertNotNull(shoppingCart.getProducts());
+        assertEquals(2, shoppingCart.getProducts().size());
+        assertEquals("노트북", shoppingCart.getProducts().get(0).getName());
+        assertEquals("스마트폰", shoppingCart.getProducts().get(1).getName());
+    }
+
+    @Test
+    void orderServiceBeanTest() {
+        assertNotNull(orderService);
+        assertNotNull(orderService.getShoppingCart());
+        assertEquals(2, orderService.getShoppingCart().getProducts().size());
+        assertEquals("노트북", orderService.getShoppingCart().getProducts().get(0).getName());
+        assertEquals("스마트폰", orderService.getShoppingCart().getProducts().get(1).getName());
     }
 }

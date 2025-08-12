@@ -1,6 +1,6 @@
 package mylab.order.di.xml;
 
-import mylab.book.control.ShoppingCart;
+import mylab.order.di.xml.ShoppingCart;
 
 public class OrderService {
     private ShoppingCart shoppingCart;
