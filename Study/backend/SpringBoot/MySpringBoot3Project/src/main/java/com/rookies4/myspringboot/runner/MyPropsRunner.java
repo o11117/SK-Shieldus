@@ -9,12 +9,14 @@ import org.springframework.stereotype.Component;
 public class MyPropsRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("VM Arguments " + args.containsOption("foo"));
-        System.out.println("Program Arguments " + args.containsOption("bar"));
+        System.out.println("VM Arguments " + args.containsOption("foo"));//false
+        System.out.println("Program Arguments " + args.containsOption("bar"));//true
 
+        //Program Argument의 모든 이름 출력
         for (String argName: args.getOptionNames()) {
             System.out.println("아규먼트 이름 = " + argName);
         }
+
 
 
     }
