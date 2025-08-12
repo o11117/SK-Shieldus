@@ -1,17 +1,18 @@
 package mylab.student.control;
 
 import mylab.student.entity.Student;
+import mylab.student.exception.InvalidGradeException;
 
 public class StudentTest {
 
-	public static void main(String[] args) {
-		Student student = new Student("20203049","¼Û½ÂÁØ","¼ÒÇÁÆ®¿þ¾î",4);
+	public static void main(String[] args) throws InvalidGradeException {
+		Student student = new Student("20203049","ï¿½Û½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½",4);
 		
-		System.out.println("ÇÐ¹ø: " + student.getStudentId() + "\nÀÌ¸§: " + student.getName() + "\nÀü°ø: " + student.getMajor() + "\nÇÐ³â: " + student.getGrade() + "ÇÐ³â"  );
+		System.out.println("ï¿½Ð¹ï¿½: " + student.getStudentId() + "\nï¿½Ì¸ï¿½: " + student.getName() + "\nï¿½ï¿½ï¿½ï¿½: " + student.getMajor() + "\nï¿½Ð³ï¿½: " + student.getGrade() + "ï¿½Ð³ï¿½"  );
 		
 		
 		try {
-			System.out.println("5ÇÐ³â º¯°æ ½Ãµµ");
+			System.out.println("5ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½");
 			student.setGrade(5);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

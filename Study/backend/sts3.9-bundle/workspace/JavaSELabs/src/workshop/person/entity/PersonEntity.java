@@ -45,9 +45,9 @@ public class PersonEntity {
 		this.ssn = ssn;
 		if(ssn != null) {
 		if (ssn.charAt(6) == '1' || ssn.charAt(6) == '3')
-			setGender('³²');
+			setGender('ë‚¨');
 		else if (ssn.charAt(6) == '2' || ssn.charAt(6) == '4')
-			setGender('¿©');
+			setGender('ì—¬');
 		}
 	}
 
