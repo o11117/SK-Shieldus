@@ -30,5 +30,8 @@ public class MyPropsRunner implements ApplicationRunner {
             }
         });
 
+        //2. 람다식
+        args.getOptionNames().forEach(s -> System.out.println("람다식 아규먼트 이름 = " + s));
+
     }
 }
