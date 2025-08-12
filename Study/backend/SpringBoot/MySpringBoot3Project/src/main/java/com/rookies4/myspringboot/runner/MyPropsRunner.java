@@ -33,5 +33,7 @@ public class MyPropsRunner implements ApplicationRunner {
         //2. 람다식
         args.getOptionNames().forEach(s -> System.out.println("람다식 아규먼트 이름 = " + s));
 
+        //3. 메서드 레퍼런스
+        args.getOptionNames().forEach(System.out::println);
     }
 }
