@@ -17,7 +17,7 @@ public class MyPropsRunner implements ApplicationRunner {
             System.out.println("아규먼트 이름 = " + argName);
         }
 
-
+        
 
     }
 }
