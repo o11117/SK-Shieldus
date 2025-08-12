@@ -13,8 +13,9 @@ public class MySpringBoot3ProjectApplication {
 	public static void main(String[] args) {
 
 
-        SpringApplication.run(MySpringBoot3ProjectApplication.class, args);
-	}
+//        SpringApplication.run(MySpringBoot3ProjectApplication.class, args);
+	    new SpringApplication(MySpringBoot3ProjectApplication.class);
+    }
 
     @Bean
     public String hello(){
