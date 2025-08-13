@@ -146,3 +146,151 @@ Unconditional classes:
 2025-08-13T13:33:33.514+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2025-08-13T13:33:33.520+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : Started MySpringBoot3ProjectApplication in 0.739 seconds (process running for 966.908)
 2025-08-13T13:33:33.524+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-08-13T13:38:58.092+09:00  INFO 28732 --- [MySpringBoot3Project] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 2 deletions, 0 modifications)
+2025-08-13T13:38:58.094+09:00  INFO 28732 --- [MySpringBoot3Project] [Thread-16] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-13T13:38:58.291+09:00  INFO 28732 --- [MySpringBoot3Project] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-08-13T13:38:58.293+09:00  INFO 28732 --- [MySpringBoot3Project] [Thread-16] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-13T13:38:58.294+09:00  WARN 28732 --- [MySpringBoot3Project] [Thread-16] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-08-13T13:38:58.295+09:00  INFO 28732 --- [MySpringBoot3Project] [Thread-16] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2025-08-13T13:38:58.296+09:00  INFO 28732 --- [MySpringBoot3Project] [Thread-16] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2025-08-13T13:38:58.382+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : Starting MySpringBoot3ProjectApplication using Java 17.0.2 with PID 28732 (C:\SK-Shieldus\Study\backend\SpringBoot\MySpringBoot3Project\target\classes started by user in C:\SK-Shieldus\Study\backend\SpringBoot\MySpringBoot3Project)
+2025-08-13T13:38:58.382+09:00 DEBUG 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : Running with Spring Boot v3.4.8, Spring v6.2.8
+2025-08-13T13:38:58.382+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : The following 1 profile is active: "test"
+2025-08-13T13:38:58.612+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-13T13:38:58.615+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2025-08-13T13:38:58.674+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-13T13:38:58.674+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-13T13:38:58.674+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-13T13:38:58.688+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-13T13:38:58.688+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 304 ms
+2025-08-13T13:38:58.722+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2025-08-13T13:38:58.725+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection conn40: url=jdbc:h2:mem:f06fe6a1-027a-40fd-be66-3499066c292a user=SA
+2025-08-13T13:38:58.725+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2025-08-13T13:38:58.726+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-13T13:38:58.727+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-13T13:38:58.731+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-13T13:38:58.732+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-5)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-13T13:38:58.744+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-13T13:38:58.744+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-13T13:38:58.752+09:00  WARN 28732 --- [MySpringBoot3Project] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'myPropsRunner': Unsatisfied dependency expressed through field 'logger': No qualifying bean of type 'org.slf4j.Logger' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2025-08-13T13:38:58.752+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-13T13:38:58.752+09:00  WARN 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-08-13T13:38:58.752+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2025-08-13T13:38:58.753+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2025-08-13T13:38:58.754+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-08-13T13:38:58.762+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-08-13T13:38:58.779+09:00 ERROR 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field logger in com.rookies4.myspringboot.runner.MyPropsRunner required a bean of type 'org.slf4j.Logger' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.slf4j.Logger' in your configuration.
+
+2025-08-13T13:39:00.211+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : Starting MySpringBoot3ProjectApplication using Java 17.0.2 with PID 28732 (C:\SK-Shieldus\Study\backend\SpringBoot\MySpringBoot3Project\target\classes started by user in C:\SK-Shieldus\Study\backend\SpringBoot\MySpringBoot3Project)
+2025-08-13T13:39:00.212+09:00 DEBUG 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : Running with Spring Boot v3.4.8, Spring v6.2.8
+2025-08-13T13:39:00.212+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : The following 1 profile is active: "test"
+2025-08-13T13:39:00.400+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-13T13:39:00.401+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2025-08-13T13:39:00.538+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-13T13:39:00.540+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-13T13:39:00.540+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-13T13:39:00.562+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2025-08-13T13:39:00.562+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 350 ms
+2025-08-13T13:39:00.627+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2025-08-13T13:39:00.628+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection conn41: url=jdbc:h2:mem:eac07eeb-f743-48a5-9b8e-36422693188a user=SA
+2025-08-13T13:39:00.629+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2025-08-13T13:39:00.630+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-13T13:39:00.632+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-13T13:39:00.638+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-13T13:39:00.639+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-6)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-13T13:39:00.654+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-13T13:39:00.654+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-13T13:39:00.661+09:00  WARN 28732 --- [MySpringBoot3Project] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'myPropsRunner': Unsatisfied dependency expressed through field 'logger': No qualifying bean of type 'org.slf4j.Logger' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2025-08-13T13:39:00.661+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-13T13:39:00.661+09:00  WARN 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-08-13T13:39:00.661+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2025-08-13T13:39:00.662+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
+2025-08-13T13:39:00.662+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-08-13T13:39:00.671+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-08-13T13:39:00.674+09:00 ERROR 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field logger in com.rookies4.myspringboot.runner.MyPropsRunner required a bean of type 'org.slf4j.Logger' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.slf4j.Logger' in your configuration.
+
+2025-08-13T13:40:43.106+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : Starting MySpringBoot3ProjectApplication using Java 17.0.2 with PID 28732 (C:\SK-Shieldus\Study\backend\SpringBoot\MySpringBoot3Project\target\classes started by user in C:\SK-Shieldus\Study\backend\SpringBoot\MySpringBoot3Project)
+2025-08-13T13:40:43.106+09:00 DEBUG 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : Running with Spring Boot v3.4.8, Spring v6.2.8
+2025-08-13T13:40:43.106+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : The following 1 profile is active: "test"
+2025-08-13T13:40:43.313+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-13T13:40:43.315+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2025-08-13T13:40:43.366+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-13T13:40:43.366+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-13T13:40:43.366+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-13T13:40:43.376+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.a.c.c.C.[Tomcat-2].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2025-08-13T13:40:43.376+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 269 ms
+2025-08-13T13:40:43.408+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2025-08-13T13:40:43.409+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection conn42: url=jdbc:h2:mem:3e4c3333-366a-4180-8753-9fef54edbcef user=SA
+2025-08-13T13:40:43.409+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2025-08-13T13:40:43.410+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-13T13:40:43.412+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-13T13:40:43.415+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-13T13:40:43.416+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-7)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-13T13:40:43.427+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-13T13:40:43.427+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-13T13:40:43.445+09:00  WARN 28732 --- [MySpringBoot3Project] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-13T13:40:43.479+09:00  WARN 28732 --- [MySpringBoot3Project] [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2025-08-13T13:40:43.541+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:3e4c3333-366a-4180-8753-9fef54edbcef'
+2025-08-13T13:40:43.544+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-08-13T13:40:43.546+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-08-13T13:40:43.560+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-08-13T13:40:43.566+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] c.r.m.MySpringBoot3ProjectApplication    : Started MySpringBoot3ProjectApplication in 0.475 seconds (process running for 1396.954)
+2025-08-13T13:40:43.568+09:00 DEBUG 28732 --- [MySpringBoot3Project] [restartedMain] c.r.myspringboot.runner.MyPropsRunner    : Logger 구현객체명 = ch.qos.logback.classic.Logger
+2025-08-13T13:40:43.570+09:00  INFO 28732 --- [MySpringBoot3Project] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged

@@ -32,11 +32,12 @@ public class MyPropsRunner implements ApplicationRunner {
     @Autowired
     private CustomVO custom;
 
-    @Autowired
     private Logger logger = LoggerFactory.getLogger(MyPropsRunner.class);
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        logger.debug("Logger 구현객체명 = {}", logger.getClass().getName());
+
         System.out.println("현재 활성화된 CustomVO = " + custom);
 
         System.out.println("MyBootProperties.getName() = " + properties.getName());
