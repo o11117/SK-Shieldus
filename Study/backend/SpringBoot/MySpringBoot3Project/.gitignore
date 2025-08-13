@@ -3,6 +3,7 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+/Study/backend/SpringBoot/MySpringBoot3Project/logs
 
 ### STS ###
 .apt_generated
