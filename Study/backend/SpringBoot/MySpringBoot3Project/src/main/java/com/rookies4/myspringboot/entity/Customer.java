@@ -12,4 +12,11 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    //Unique한 값을 가져야하고, Null이 될 수 없다.
+    @Column(unique = true, nullable = false)
+    private String customerId;
+
+    @Column(nullable = false)
+    private String customerName;
 }
