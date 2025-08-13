@@ -3,6 +3,9 @@ package com.rookies4.myspringboot.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "customers")
@@ -19,4 +22,8 @@ public class Customer {
 
     @Column(nullable = false)
     private String customerName;
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    LocalDateTime createdAt = LocalDateTime.now();
 }
