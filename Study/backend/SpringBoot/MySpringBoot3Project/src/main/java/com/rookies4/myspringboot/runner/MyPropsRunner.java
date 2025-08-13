@@ -38,18 +38,18 @@ public class MyPropsRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         logger.debug("Logger 구현객체명 = {}", logger.getClass().getName());
 
-        System.out.println("현재 활성화된 CustomVO = " + custom);
+        logger.info("현재 활성화된 CustomVO = " + custom);
 
-        System.out.println("MyBootProperties.getName() = " + properties.getName());
-        System.out.println("MyBootProperties.getAge() = " + properties.getAge());
-        System.out.println("MyBootProperties.getFullName() = " + properties.getFullName());
+        logger.info("MyBootProperties.getName() = " + properties.getName());
+        logger.info("MyBootProperties.getAge() = " + properties.getAge());
+        logger.info("MyBootProperties.getFullName() = " + properties.getFullName());
 
-        System.out.println("Properties myboot.name = " + name);
-        System.out.println("Properties myboot.age = " + age);
-        System.out.println("Properties myboot.fullName = " + environment.getProperty("myboot.fullName"));
+        logger.info("Properties myboot.name = " + name);
+        logger.info("Properties myboot.age = " + age);
+        logger.info("Properties myboot.fullName = " + environment.getProperty("myboot.fullName"));
 
-        System.out.println("VM Arguments " + args.containsOption("foo"));//false
-        System.out.println("Program Arguments " + args.containsOption("bar"));//true
+        logger.debug("VM Arguments " + args.containsOption("foo"));//false
+        logger.debug("Program Arguments " + args.containsOption("bar"));//true
 
         //Program Argument의 모든 이름 출력
         for (String argName: args.getOptionNames()) {
