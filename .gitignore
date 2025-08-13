@@ -14,3 +14,4 @@ Study/backend/sts3.9-bundle/workspace/MySpringFW/target/m2e-wtp/web-resources/ME
 /Study/backend/sts3.9-bundle/workspace/JavaSELabs/src/out
 /Study/backend/SpringBoot/MySpringBoot3Project/logs
 *.logs
+Study/backend/SpringBoot/MySpringBoot3Project/logs/spring.log
