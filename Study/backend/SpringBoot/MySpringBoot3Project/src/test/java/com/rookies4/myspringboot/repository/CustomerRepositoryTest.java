@@ -26,6 +26,13 @@ class CustomerRepositoryTest {
     void testFindCustomer() {
         //findByCustomerId 메소드를 이용해서 Customer 조회
         Optional<Customer> customerById = customerRepository.findById(1L);
+//        assertThat(customerById).isNotEmpty();
+//        assertThat(customerById).isEmpty();
+
+        if(customerById.isPresent()) {
+            Customer existCustomer = customerById.get();
+            assertThat(existCustomer.getId()).isEqualTo(1L);
+        }
     }
 
     @Test
