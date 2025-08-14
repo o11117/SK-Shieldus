@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class Customer {
     //Primary Key, PK값을 Persistence Provider가 자동으로 생성
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //Unique한 값을 가져야하고, Null이 될 수 없다.

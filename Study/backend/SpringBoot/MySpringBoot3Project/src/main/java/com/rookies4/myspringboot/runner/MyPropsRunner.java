@@ -38,6 +38,7 @@ public class MyPropsRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         logger.debug("Logger 구현객체명 = {}", logger.getClass().getName());
 
+
         logger.info("현재 활성화된 CustomVO = " + custom);
 
         logger.info("MyBootProperties.getName() = " + properties.getName());

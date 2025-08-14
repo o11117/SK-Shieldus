@@ -1,6 +1,5 @@
 package com.rookies4.myspringbootlab.config;
 
-import lombok.Builder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
