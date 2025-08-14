@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.junit.jupiter.api.Assertions.*;
+//assertj 라이브러리의 Assertions 클래스
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class CustomerRepositoryTest {
@@ -19,8 +22,10 @@ class CustomerRepositoryTest {
         customer.setCustomerId("AC001");
         customer.setCustomerName("스프링부트");
         //When (실행단계)
-        customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.save(customer);
         //Then (검증단계)
-
+        //등록된 Customer가 null이 아닌지 확인
+        assertThat(savedCustomer).isNotNull();
+        //assertEquals(expected, actual);
     }
 }
