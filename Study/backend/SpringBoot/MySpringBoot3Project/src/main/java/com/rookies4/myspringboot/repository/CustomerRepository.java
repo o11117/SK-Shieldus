@@ -10,5 +10,5 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
     //customerId로 조회하는 Query 메소드 정의
     Optional<Customer> findByCustomerId(String customerId);
     //customerName으로 조회하는 Query 메소드 정의
-    List<Customer> findByCustomerName(String customerName);
+    List<Customer> findByCustomerNameContains(String customerName);
 }
