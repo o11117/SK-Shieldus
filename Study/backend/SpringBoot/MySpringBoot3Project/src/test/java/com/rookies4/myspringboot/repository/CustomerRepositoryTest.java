@@ -1,6 +1,8 @@
 package com.rookies4.myspringboot.repository;
 
 import com.rookies4.myspringboot.entity.Customer;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,11 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
 
     @Test
+    @Rollback(false)
     void testSaveCustomer() {
         //Given (준비단계)
         Customer customer = new Customer();
