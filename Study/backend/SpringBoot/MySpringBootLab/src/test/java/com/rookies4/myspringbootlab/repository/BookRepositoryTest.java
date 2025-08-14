@@ -25,7 +25,7 @@ public class BookRepositoryTest {
 
     @Test
 //    @Rollback(value = false)
-    public void testCreateBook(){
+    public void testCreateBook(){ 
 
         Book book = new Book();
         book.setTitle("스프링 부트 입문");
