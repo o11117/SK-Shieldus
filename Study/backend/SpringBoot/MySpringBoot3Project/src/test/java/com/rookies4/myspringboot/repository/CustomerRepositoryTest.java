@@ -21,6 +21,15 @@ class CustomerRepositoryTest {
     CustomerRepository customerRepository;
 
     @Test
+    @Rollback(value = false) //Rollback 처리하지 마세요!!
+    void testUpdateCustomer(){
+        Customer customer = customerRepository.findByCustomerId("AC001").orElseThrow(() -> new RuntimeException("Customer Not Found"));
+        customer.setCustomerName("SpringBoot");
+        customerRepository.save(customer);
+    }
+
+    @Test
+    @Disabled
     //Customer 조회 존재하지 않으면 예외 발생
     void testNotFoundCustomer(){
          Customer notFoundCustomer = customerRepository.findByCustomerId("AC003").orElseThrow(() -> new RuntimeException("Customer Not Found"));
