@@ -1,6 +1,7 @@
 package com.rookies4.myspringboot.controller;
 
 import com.rookies4.myspringboot.entity.UserEntity;
+import com.rookies4.myspringboot.exception.BusinessException;
 import com.rookies4.myspringboot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,9 @@ public class UserRestController {
     @GetMapping("/{id}")
     public UserEntity getUser(@PathVariable Long id) {
         Optional<UserEntity> optionalUser = userRepository.findById(id);
-        UserEntity existUser = optionalUser.orElseThrow();
+        //orElseThrow(Supplier) Supplier의 추상메서드 T get()
+        UserEntity existUser = optionalUser.orElseThrow(() -> new BusinessException("User Not Found",
+                org.springframework.http.HttpStatus.NOT_FOUND));
         return existUser;
     }
 }
