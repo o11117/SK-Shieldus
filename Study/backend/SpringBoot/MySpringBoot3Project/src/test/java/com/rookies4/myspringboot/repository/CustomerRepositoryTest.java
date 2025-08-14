@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 //ctrl + shift + f10
 @SpringBootTest
-@Transactional
+//@Transactional
 class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
@@ -24,8 +24,8 @@ class CustomerRepositoryTest {
     @Rollback(value = false) //Rollback 처리하지 마세요!!
     void testUpdateCustomer(){
         Customer customer = customerRepository.findByCustomerId("AC001").orElseThrow(() -> new RuntimeException("Customer Not Found"));
-        customer.setCustomerName("마이둘리");
-//        customerRepository.save(customer);
+        customer.setCustomerName("마이둘리2");
+        customerRepository.save(customer);
     }
 
     @Test
@@ -60,8 +60,9 @@ class CustomerRepositoryTest {
     }
 
     @Test
+    @Transactional
     @Rollback(value = false) //Rollback 처리하지 마세요!!
-    @Disabled
+//    @Disabled
     //Customer 등록
     void testSaveCustomer() {
         //Given (준비단계)
