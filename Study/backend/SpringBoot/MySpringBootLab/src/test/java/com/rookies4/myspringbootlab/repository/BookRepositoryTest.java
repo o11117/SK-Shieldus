@@ -5,8 +5,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Transactional
+//@Transactional
 @DynamicUpdate
 //@RequiredArgsConstructor
 public class BookRepositoryTest {
@@ -26,7 +24,7 @@ public class BookRepositoryTest {
     private BookRepository bookRepository;
 
     @Test
-    @Rollback(value = false)
+//    @Rollback(value = false)
     public void testCreateBook(){
 
         Book book = new Book();
@@ -59,6 +57,38 @@ public class BookRepositoryTest {
         assertThat(booksByAuthor).isNotEmpty();
         for (Book book : booksByAuthor) {
             System.out.println("Book found: " + book.getTitle() + " by " + book.getAuthor());
+        }
+
+    }
+
+    @Test
+    public void testUpdateBook() {
+        Optional<Book> bookToEdit = bookRepository.findByIsbn("9788956746425");
+        Book editedBook = new Book();
+
+        if (bookToEdit.isPresent()) {
+            Book book = bookToEdit.get();
+            book.setTitle("JPA 프로그래밍");
+            book.setPrice(35000);
+            book.setPublishDate(LocalDate.parse("2025-04-30"));
+            book.setIsbn("9788956746432");
+            book.setAuthor("박둘리");
+
+            editedBook = bookRepository.save(book);
+        }
+        assertThat(editedBook.getTitle()).isEqualTo("JPA 프로그래밍");
+        System.out.println("수정된 책 : " + editedBook.getTitle());
+    }
+
+    @Test
+    public void testDeleteBook(){
+        Optional<Book> bookToDelete = bookRepository.findByIsbn("9788956746432");
+        if (bookToDelete.isPresent()) {
+            Book book = bookToDelete.get();
+            bookRepository.delete(book);
+            System.out.println("책이 삭제되었습니다: " + book.getTitle());
+        } else {
+            System.out.println("책을 찾을 수 없습니다.");
         }
 
     }
