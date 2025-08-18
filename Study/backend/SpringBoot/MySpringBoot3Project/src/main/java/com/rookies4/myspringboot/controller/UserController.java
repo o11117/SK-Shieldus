@@ -33,15 +33,15 @@ public class UserController {
         }
         //등록
         userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
-        return "index";
-        //return "redirect:/index";
+        //model.addAttribute("users", userRepository.findAll());
+        //return "index";
+        return "redirect:/users/index";
     }
 
     @GetMapping("/users/index")
     public ModelAndView index() {
         List<UserEntity> userEntityList = userRepository.findAll();
-        return new ModelAndView("index","users",userEntityList);
+        return new ModelAndView("index","users", userEntityList);
     }
 
     @GetMapping("/thymeleaf")
