@@ -1,6 +1,6 @@
 package com.rookies4.myspringbootlab.exception.advice;
 
-import com.rookies4.myspringboot.exception.BusinessException;
+import com.rookies4.myspringbootlab.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
