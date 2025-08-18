@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
-public class BookController {
+public class BookRestController {
     private BookRepository bookRepository;
 
     public List<Book> getAllBooks() {
