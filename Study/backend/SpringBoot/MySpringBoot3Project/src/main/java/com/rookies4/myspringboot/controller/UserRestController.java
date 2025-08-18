@@ -4,6 +4,7 @@ import com.rookies4.myspringboot.entity.UserEntity;
 import com.rookies4.myspringboot.exception.BusinessException;
 import com.rookies4.myspringboot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,10 +34,7 @@ public class UserRestController {
     //ID로 조회
     @GetMapping("/{id}")
     public UserEntity getUser(@PathVariable Long id) {
-        Optional<UserEntity> optionalUser = userRepository.findById(id);
-        //orElseThrow(Supplier) Supplier의 추상메서드 T get()
-        UserEntity existUser = optionalUser.orElseThrow(() -> new BusinessException("User Not Found",
-                org.springframework.http.HttpStatus.NOT_FOUND));
+        UserEntity existUser = getExistUser(id);
         return existUser;
     }
     //이메일로 조회, 수정
@@ -50,5 +48,20 @@ public class UserRestController {
         //DB에 저장
         UserEntity updatedUser = userRepository.save(existUser);
         return updatedUser;
+    }
+    //삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        UserEntity existUser = getExistUser(id);
+        userRepository.delete(existUser);
+        return ResponseEntity.ok("User가 삭제되었습니다.");
+    }
+
+    private UserEntity getExistUser(Long id) {
+        Optional<UserEntity> optionalUser = userRepository.findById(id);
+        //orElseThrow(Supplier) Supplier의 추상메서드 T get()
+        UserEntity existUser = optionalUser.orElseThrow(() -> new BusinessException("User Not Found",
+                org.springframework.http.HttpStatus.NOT_FOUND));
+        return existUser;
     }
 }
