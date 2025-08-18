@@ -40,7 +40,7 @@ public class UserRestController {
         return existUser;
     }
     //이메일로 조회, 수정
-    @PatchMapping("/{email}")
+    @PatchMapping("/{email}/")
     public UserEntity updateUser(@PathVariable String email, @RequestBody UserEntity userDetail) {
         UserEntity existUser = userRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessException("User Not Found",
