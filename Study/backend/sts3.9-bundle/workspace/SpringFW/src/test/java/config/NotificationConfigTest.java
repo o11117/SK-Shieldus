@@ -23,10 +23,8 @@ public class NotificationConfigTest {
     @Autowired
     NotificationManager notificationManager;
     @Autowired
-    @Qualifier("emailNotificationService")
     EmailNotificationService emailService;
     @Autowired
-    @Qualifier("smsNotificationService")
     SmsNotificationService smsService;
 
     @Test
