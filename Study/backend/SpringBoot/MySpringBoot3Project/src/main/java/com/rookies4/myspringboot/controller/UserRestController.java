@@ -39,4 +39,12 @@ public class UserRestController {
                 org.springframework.http.HttpStatus.NOT_FOUND));
         return existUser;
     }
+    //이메일로 조회, 수정
+    @PatchMapping("/{email}")
+    public UserEntity updateUser(@PathVariable String email, @RequestBody UserEntity user) {
+        UserEntity existUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException("User Not Found",
+                org.springframework.http.HttpStatus.NOT_FOUND));
+        return existUser;
+    }
 }
