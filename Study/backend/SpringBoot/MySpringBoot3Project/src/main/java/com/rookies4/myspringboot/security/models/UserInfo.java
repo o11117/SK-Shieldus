@@ -1,10 +1,12 @@
 package com.rookies4.myspringboot.security.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserInfo {
