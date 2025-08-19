@@ -70,4 +70,9 @@ public class UserRestController {
         return existUser;
     }
 
+    @GetMapping("/welcome")
+        public String welcome() {
+        return "Welcome this endpoint is not secure";
+    }
+
 }
