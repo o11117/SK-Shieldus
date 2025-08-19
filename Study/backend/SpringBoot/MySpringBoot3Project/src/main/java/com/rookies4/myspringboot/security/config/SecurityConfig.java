@@ -16,8 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
+@EnableWebSecurity //Authentication(인증) 활성화
+@EnableMethodSecurity //Authorization(권한) 활성화
 public class SecurityConfig {
     @Bean
     //패스워드 암호화
