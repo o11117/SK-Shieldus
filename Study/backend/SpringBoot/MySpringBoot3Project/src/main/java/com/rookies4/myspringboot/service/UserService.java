@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.StreamSupport.stream;
 
@@ -62,6 +61,13 @@ public class UserService {
         //dirty read (setter 메서드만 호출하고 save()를 호출하지 않음)
         existUser.setName(request.getName());
         return new UserDTO.UserResponse(existUser);
+    }
+
+    //User 삭제
+    @Transactional
+    public void deleteUser(Long id){
+        UserEntity userEntity = getUserExist(id);
+        userRepository.delete(userEntity);
     }
 
     //내부 Helper Method

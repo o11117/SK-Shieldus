@@ -39,4 +39,10 @@ public class UserServiceRestController {
             @Valid @RequestBody UserDTO.UserUpdateRequest request) {
         return ResponseEntity.ok(userService.updateUser(email, request));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 }
