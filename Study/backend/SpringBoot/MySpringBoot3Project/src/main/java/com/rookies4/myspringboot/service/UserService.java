@@ -9,6 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.StreamSupport.stream;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -31,6 +36,21 @@ public class UserService {
     public UserDTO.UserResponse getUserById(Long id) {
         UserEntity userEntity = getUserExist(id);
         return new UserDTO.UserResponse(userEntity);
+    }
+
+    //User 목록 조회하기
+    public List<UserDTO.UserResponse> getAllUsers() {
+        //List<UserEntity> -> List<UserDTO.UserResponse>
+        //level1
+//        return userRepository.findAll() //List<UserEntity>
+//                .stream()//Stream<UserEntity>
+//                .map(entity -> new UserDTO.UserResponse(entity))//Stream<UserDTO.UserResponse>
+//                .collect(Collectors.toList());
+        //level2
+        return userRepository.findAll()
+                .stream()
+                .map(UserDTO.UserResponse::new)
+                .toList();
     }
 
     //내부 Helper Method
