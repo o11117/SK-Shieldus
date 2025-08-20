@@ -9,17 +9,17 @@ import java.time.LocalDateTime;
 
 public class UserDTO {
     
-    //등록 데이터 입력 DTO
+    //등록 데이터 입력 DTO Inner class
     @Getter
     @Setter
     public static class UserCreateRequest {
-        @NotBlank(message = "Name 은 필수 입력항목입니다.")
+        @NotBlank(message = "Name은 필수 입력항목입니다.")
         private String name;
-        
-        @NotBlank(message = "Email 은 필수 입력항목입니다.")
+
+        @NotBlank(message = "Email은 필수 입력항목입니다.")
         private String email;
 
-        //DTO에서 Entity로 변환하는 메소드
+        // DTO를 Entity로 변환하는 메서드
         public UserEntity toEntity() {
             UserEntity user = new UserEntity();
             user.setName(this.name);
@@ -27,23 +27,22 @@ public class UserDTO {
             return user;
         }
     }
-    
-    //수정 입력
+
+    //수정 데이터 입력 DTO Inner class
     @Getter
     @Setter
     public static class UserUpdateRequest {
         @NotBlank(message = "Name 은 필수 입력항목입니다.")
         private String name;
     }
-    
-    //조회 출력
+
+    //조회한 데이터 출력 DTO Inner class
     @Getter
     public static class UserResponse {
         private Long id;
         private String name;
         private String email;
         private LocalDateTime createdAt;
-
 
         public UserResponse(UserEntity user) {
             this.id = user.getId();
