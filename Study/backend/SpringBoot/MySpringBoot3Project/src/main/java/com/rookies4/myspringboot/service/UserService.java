@@ -26,4 +26,14 @@ public class UserService {
         UserEntity savedEntity = userRepository.save(entity);
         return new UserDTO.UserResponse(savedEntity);
     }
+    //Id로 User 조회
+    public UserDTO.UserResponse getUserById(Long id) {
+
+    }
+
+    //내부 Helper Method
+    private UserEntity getUserExist(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("User Not Found", HttpStatus.NOT_FOUND));
+    }
 }
