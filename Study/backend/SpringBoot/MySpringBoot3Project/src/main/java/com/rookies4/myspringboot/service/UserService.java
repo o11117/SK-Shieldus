@@ -27,8 +27,10 @@ public class UserService {
         return new UserDTO.UserResponse(savedEntity);
     }
     //Id로 User 조회
-    public UserDTO.UserResponse getUserById(Long id) {
 
+    public UserDTO.UserResponse getUserById(Long id) {
+        UserEntity userEntity = getUserExist(id);
+        return new UserDTO.UserResponse(userEntity);
     }
 
     //내부 Helper Method
