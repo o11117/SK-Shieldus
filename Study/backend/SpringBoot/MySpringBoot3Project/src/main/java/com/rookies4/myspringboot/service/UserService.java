@@ -53,6 +53,16 @@ public class UserService {
                 .toList();
     }
 
+    @Transactional
+    public UserDTO.UserResponse updateUser(String email, UserDTO.UserUpdateRequest request){
+
+        UserEntity existUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException("User Not Found", HttpStatus.NOT_FOUND));
+        //dirty read (setter 메서드만 호출하고 save()를 호출하지 않음)
+        existUser.setName(request.getName());
+        return new UserDTO.UserResponse(existUser);
+    }
+
     //내부 Helper Method
     private UserEntity getUserExist(Long id){
         return userRepository.findById(id)
