@@ -53,6 +53,7 @@ public class UserService {
                 .toList();
     }
 
+    //User 수정
     @Transactional
     public UserDTO.UserResponse updateUser(String email, UserDTO.UserUpdateRequest request){
 
