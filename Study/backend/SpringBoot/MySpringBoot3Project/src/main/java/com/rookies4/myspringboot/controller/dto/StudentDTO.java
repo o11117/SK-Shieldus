@@ -43,7 +43,8 @@ public class StudentDTO {
         @NotBlank(message = "Phone number is required")
         @Size(max = 20, message = "Phone number cannot exceed 20 characters")
         private String phoneNumber;
-        
+
+        @NotBlank(message = "Email is required")
         @Size(max = 100, message = "Email cannot exceed 100 characters")
         private String email;
         
@@ -60,6 +61,7 @@ public class StudentDTO {
         private String studentNumber;
         private StudentDetailResponse detail;
 
+        //Entity to DTO conversion method
         public static Response fromEntity(Student student) {
             StudentDetailResponse detailResponse = student.getStudentDetail() != null
                     ? StudentDetailResponse.builder()
