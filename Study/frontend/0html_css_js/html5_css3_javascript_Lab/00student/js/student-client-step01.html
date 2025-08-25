@@ -11,9 +11,19 @@
         <h2>학생 등록</h2>
         <form>
             <label for="name">이름:</label>
-            <input type="text" name="name" id="name">
+            <input type="text" name="name" id="name" required>
+
             <label for="studentNumber">학번:</label>
-            <input type="text" name="studentNumber" id="studentNumber">
+            <input type="text" name="studentNumber" id="studentNumber" required>
+
+            <label for="address">주소:</label>
+            <input type="text" name="address" id="address" required>
+            
+            <label for="phoneNumber">전화번호:</label>
+            <input type="text" name="phoneNumber" id="phoneNumber"
+            placeholder="00*-000*-0000"
+            pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+            required>
         </form>
     </div>
 
