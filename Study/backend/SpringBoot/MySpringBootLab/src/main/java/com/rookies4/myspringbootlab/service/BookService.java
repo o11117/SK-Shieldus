@@ -38,7 +38,7 @@ public class BookService {
         return BookDTO.BookResponse.fromEntity(book);
     }
 
-    public List<BookDTO.BookResponse> getAllBooksByAuthor(String author) {
+    public List<BookDTO.BookResponse> getBooksByAuthor(String author) {
         List<Book> books = bookRepository.findByAuthor(author);
         return books.stream()
                 .map(BookDTO.BookResponse::fromEntity)
