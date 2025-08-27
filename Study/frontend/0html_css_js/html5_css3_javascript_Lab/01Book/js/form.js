@@ -30,7 +30,7 @@ bookForm.addEventListener("submit", function (event) {
 
     //사용자 정의 Book Object Literal 객체생성 (공백 제거 trim())
     const bookData = {
-        name: bookFormData.get("name").trim(),
+        title: bookFormData.get("title").trim(),
         author: bookFormData.get("author").trim(),
         isbn: bookFormData.get("isbn").trim(),
         price: bookFormData.get("price").trim(),
@@ -141,7 +141,7 @@ function editBook(bookId) {
         })
         .then((book) => {
             //Form에 데이터 채우기
-            bookForm.name.value = book.name;
+            bookForm.title.value = book.title;
             bookForm.author.value = book.author;
             bookForm.isbn.value = book.isbn;
             bookForm.price.value = book.price;
@@ -213,7 +213,7 @@ function resetForm() {
 
 //입력항목의 값의 유효성을 체크하는 함수
 function validateBook(book) {// 필수 필드 검사
-    if (!book.name) {
+    if (!book.title) {
         alert("제목을 입력해주세요.");
         return false;
     }
@@ -284,14 +284,14 @@ function renderBooksTable(books) {
 
         //<tr>의 content을 동적으로 생성
         row.innerHTML = `
-                    <td>${book.name}</td>
+                    <td>${book.title}</td>
                     <td>${book.author}</td>
                     <td>${book.isbn}</td>
                     <td>${book.price}</td>
                     <td>${book.publishDate}</td>
                     <td>
                         <button class="edit-btn" onclick="editBook(${book.id})">수정</button>
-                        <button class="delete-btn" onclick="deleteBook(${book.id},'${book.name}')">삭제</button>
+                        <button class="delete-btn" onclick="deleteBook(${book.id},'${book.title}')">삭제</button>
                     </td>
                 `;
         //<tbody>의 아래에 <tr>을 추가시켜 준다.
