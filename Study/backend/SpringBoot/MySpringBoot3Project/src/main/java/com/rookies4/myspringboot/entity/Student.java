@@ -31,4 +31,10 @@ public class Student {
 
     @OneToOne(fetch =  FetchType.LAZY, mappedBy = "student", cascade = CascadeType.ALL)
     private StudentDetail studentDetail;
+
+    //N:1 관계 지연로딩
+    //department 변수는 테이블의 FK와 매핑되는 필드
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 }

@@ -25,7 +25,11 @@ public class Department {
     
     @Column(unique = true, nullable = false)
     private String code;
-    
+
+    //Department에서 Student를 참조할 수 있도록 mappedBy 설정
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    //Builder 패턴을 적용했을 때 변수에 명시적으로 초기화한 값이 유지되도록 해주는 어노테이션
+    @Builder.Default
     private List<Student> students = new ArrayList<>();
     
     // Helper methods
