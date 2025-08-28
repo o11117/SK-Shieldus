@@ -1,7 +1,7 @@
 import './style.css'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import mycounter from './counter.js'
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -21,4 +21,4 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 
-setupCounter(document.querySelector('#counter'))
+mycounter(document.querySelector('#counter'))
