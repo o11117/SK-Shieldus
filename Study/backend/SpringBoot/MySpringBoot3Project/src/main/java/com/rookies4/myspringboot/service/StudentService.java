@@ -139,6 +139,10 @@ public class StudentService {
             // Create new detail if not exists
             if (studentDetail == null) {
                 studentDetail = new StudentDetail();
+                studentDetail.setAddress(request.getDetailRequest().getAddress());
+                studentDetail.setPhoneNumber(request.getDetailRequest().getPhoneNumber());
+                studentDetail.setEmail(request.getDetailRequest().getEmail());
+                studentDetail.setDateOfBirth(request.getDetailRequest().getDateOfBirth());
                 studentDetail.setStudent(student);
                 student.setStudentDetail(studentDetail);
             }
