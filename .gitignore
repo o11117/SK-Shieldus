@@ -15,3 +15,4 @@ Study/backend/sts3.9-bundle/workspace/MySpringFW/target/m2e-wtp/web-resources/ME
 /Study/backend/SpringBoot/MySpringBoot3Project/logs
 *.logs
 Study/backend/SpringBoot/MySpringBoot3Project/logs/spring.log
+/Study/frontend/1ecmascript/student-es6-vite/node_modules
