@@ -1,4 +1,4 @@
-import { stringUtils } from "../utils/helper"
+import { stringUtils } from "../utils/helpers"
 
 const { isEmpty, safeTrim } = stringUtils
 

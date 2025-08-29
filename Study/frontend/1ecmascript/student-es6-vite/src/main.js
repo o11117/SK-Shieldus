@@ -5,7 +5,7 @@ import './css/style.css'
 import { apiService } from './modules/api.js'
 import { validateStudent } from './modules/validation.js'
 import { uiService } from './modules/ui.js'
-import { formatDate } from './utils/helper.js'
+import { formatDate } from './utils/helpers.js'
 
 // 전역 상태
 let editingStudentId = null
