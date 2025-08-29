@@ -13,6 +13,7 @@ const request = async (endpoint, options = {}) => {
     
     // 2단계: 요청 옵션 설정 (구조분해할당과 기본값)
     // options 객체에서 필요한 값들을 추출하고, 없으면 기본값 사용
+    //http method가 없는 경우에는 GET으로 설정
     const { method = 'GET', body, headers = {} } = options
     
     // 3단계: fetch API에 전달할 최종 옵션 객체 생성
@@ -88,10 +89,10 @@ const getErrorMessage = (status, errorData) => {
     // 500: Internal Server Error - 서버 내부 오류
     
     if (status === 400) {
-        return `잘못된 요청: ${serverMessage}`
+        return `입력데이터 오류: ${serverMessage}`
     }
     if (status === 404) {
-        return `찾을 수 없음: ${serverMessage}`
+        return `데이터가 존재하지 않음: ${serverMessage}`
     }
     if (status === 409) {
         return `중복 오류: ${serverMessage}`
