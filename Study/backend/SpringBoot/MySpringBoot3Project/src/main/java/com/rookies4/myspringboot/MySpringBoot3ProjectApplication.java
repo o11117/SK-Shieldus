@@ -1,5 +1,6 @@
 package com.rookies4.myspringboot;
 
+import com.fasterxml.jackson.datatype.hibernate6.Hibernate6Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +21,13 @@ public class MySpringBoot3ProjectApplication {
         application.setWebApplicationType(WebApplicationType.SERVLET);
         application.run(args);
     }
+
+    @Bean
+    Hibernate6Module hibernate6Module() {
+	Hibernate6Module hibernate6Module = new Hibernate6Module();
+	hibernate6Module.configure(Hibernate6Module.Feature.FORCE_LAZY_LOADING,true);
+	return hibernate6Module;
+}
 
     @Bean
     public String hello(){
