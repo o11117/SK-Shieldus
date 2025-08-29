@@ -1,6 +1,6 @@
 import { stringUtils } from "../utils/helper"
 
-const { isEmpty } = stringUtils
+const { isEmpty, safeTrim } = stringUtils
 
 // 유효성 검사 모듈 - 구조분해할당과 화살표 함수 사용
 
@@ -45,7 +45,7 @@ const validators = {
         // 1단계: 필수 입력 확인 - 값이 없거나 공백만 있는 경우
         // !name : null, undefined, 빈 문자열을 체크
         // name.trim().length === 0 : 공백만 있는 문자열을 체크
-        if (!name || isEmpty(name)) {
+        if (isEmpty(name)) {
             return { 
                 isValid: false,                    // 검증 실패
                 message: messages.required.name,   // 에러 메시지
@@ -54,7 +54,7 @@ const validators = {
         }
         
         // 2단계: 최소 길이 확인 - 이름은 최소 2글자 이상이어야 함
-        if (name.trim().length < 2) {
+        if (safeTrim(name).length < 2) {
             return { 
                 isValid: false, 
                 message: '이름은 최소 2글자 이상이어야 합니다.', 
@@ -69,11 +69,11 @@ const validators = {
     // 학번 필드 검증 함수
     studentNumber: (studentNumber) => {
         // 1단계: 필수 입력 확인
-        if (!studentNumber || studentNumber.trim().length === 0) {
-            return { 
-                isValid: false, 
-                message: messages.required.studentNumber, 
-                field: 'studentNumber' 
+        if (isEmpty(studentNumber)) {
+            return {
+                isValid: false,
+                message: messages.required.studentNumber,
+                field: 'studentNumber'
             }
         }
         
