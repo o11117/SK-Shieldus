@@ -119,7 +119,7 @@ const validators = {
     // 전화번호 필드 검증 함수
     phoneNumber: (phoneNumber) => {
         // 1단계: 필수 입력 확인
-        if (!phoneNumber || phoneNumber.trim().length === 0) {
+        if (isEmpty(phoneNumber)) {
             return { 
                 isValid: false, 
                 message: messages.required.phoneNumber, 
@@ -128,7 +128,7 @@ const validators = {
         }
         
         // 2단계: 전화번호 형식 확인 - 숫자, 하이픈, 공백만 허용
-        if (!patterns.phoneNumber.test(phoneNumber.trim())) {
+        if (!patterns.phoneNumber.test(safeTrim(phoneNumber))) {
             return { 
                 isValid: false, 
                 message: messages.format.phoneNumber, 
@@ -143,7 +143,7 @@ const validators = {
     // 이메일 필드 검증 함수
     email: (email) => {
         // 1단계: 필수 입력 확인
-        if (!email || email.trim().length === 0) {
+        if (isEmpty(email)) {
             return { 
                 isValid: false, 
                 message: messages.required.email, 
@@ -152,7 +152,7 @@ const validators = {
         }
         
         // 2단계: 이메일 형식 확인 - 기본적인 이메일 패턴 매칭
-        if (!patterns.email.test(email.trim())) {
+        if (!patterns.email.test(safeTrim(email))) {
             return { 
                 isValid: false, 
                 message: messages.format.email, 
