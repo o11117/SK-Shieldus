@@ -6,19 +6,11 @@ const { isEmpty, safeTrim } = stringUtils
 
 // 정규식 패턴들 - 각 필드의 유효한 형식을 정의
 export const patterns = {
-    // 학번 패턴: 영문 1글자 + 숫자 5글자 (예: S12345, A98765)
-    // ^ : 문자열 시작, [A-Za-z] : 대소문자 영문 1글자, \d{5} : 숫자 5개, $ : 문자열 끝
     studentNumber: /^[A-Za-z]\d{5}$/,
-
-    // 전화번호 패턴: 숫자, 하이픈(-), 공백만 허용 (예: 010-1234-5678, 02 123 4567)
-    // [0-9-\s] : 숫자, 하이픈, 공백문자, + : 1개 이상
     phoneNumber: /^[0-9-\s]+$/,
-
-    // 이메일 패턴: 기본적인 이메일 형식 검증 (예: user@domain.com)
-    // [^\s@]+ : 공백과 @가 아닌 문자 1개 이상, @ : @ 기호, \. : 점(.) 문자
-    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-    
+    pageCount: /^[1-9][0-9]*$/, // 1 이상의 정수만 허용
+    coverImageUrl: /^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/\S*)?$/,
+    publishDate: /^\d{4}-\d{2}-\d{2}$/ // YYYY-MM-DD 형식
 }
 
 // 에러 메시지들을 타입별로 분류하여 관리
@@ -52,6 +44,17 @@ export const messages = {
 
 // 개별 필드별 검증 함수들을 담은 객체 (화살표 함수 사용)
 const validators = {
+    title: (title) => {
+        if (isEmpty(title)) {
+            return {
+                isValid: false,                    // 검증 실패
+                message: messages.required.title,   // 에러 메시지
+                field: 'title'                      // 문제가 발생한 필드명
+            }
+        }
+        // 3단계: 모든 검증 통과
+        return { isValid: true }
+    },
     // 제목 필드 검증 함수
     isbn: (isbn) => {
         // 1단계: 필수 입력 확인 - 값이 없거나 공백만 있는 경우
@@ -77,6 +80,17 @@ const validators = {
             }
         }
         // 3단계: 모든 검증 통과
+        return { isValid: true }
+    },
+
+    author: (author) => {
+        if (isEmpty(author)) {
+            return {
+                isValid: false,
+                message: messages.required.author,
+                field: 'author'
+            }
+        }
         return { isValid: true }
     },
 
@@ -176,6 +190,20 @@ const validators = {
 
         // 3단계: 모든 검증 통과
         return { isValid: true }
+    },
+
+    detail: (detail) => {
+        // 1단계: 필수 입력 확인
+        if (isEmpty(detail)) {
+            return {
+                isValid: false,
+                message: messages.required.publishDate,
+                field: 'publishDate'
+            }
+        }
+
+        // 3단계: 모든 검증 통과
+        return { isValid: true }
     }
 }
 
@@ -205,9 +233,9 @@ export const validateBook = (book) => {
     }
 
     // 4단계: 상세 정보(detailRequest)가 있는 경우에만 세부 검증 수행
-    if (detail) {
+    if (book.detail) {
         // 구조분해할당으로 상세 정보에서 필요한 필드들 추출
-        const { pageCount, coverImageUrl } = detail
+        const { pageCount, coverImageUrl } = book.detail
 
         // 페이지 수 검증
         const pageCountResult = validators.pageCount(pageCount)

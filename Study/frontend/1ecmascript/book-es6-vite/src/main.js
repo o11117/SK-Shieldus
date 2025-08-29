@@ -3,7 +3,7 @@ import './css/style.css'
 
 // 모듈들 불러오기 (구조분해할당 사용)
 import { apiService } from './modules/api.js'
-import { validateStudent } from './modules/validation.js'
+import { validateBook } from './modules/validation.js'
 import { uiService } from './modules/ui.js'
 import { formatDate } from './utils/helpers.js'
 
@@ -86,22 +86,31 @@ const handleFormSubmit = async () => {
 // 폼 데이터 가져오기 (구조분해할당 활용)
 const getFormData = () => {
     const formData = new FormData(elements.form)
-    
+
     // 기본값과 함께 구조분해할당
     const title = formData.get('title') || ''
     const author = formData.get('author') || ''
     const isbn = formData.get('isbn') || ''
-    const coverImageUrl = formData.get('coverImageUrl') || ''
     const price = formData.get('price') || ''
     const publishDate = formData.get('publishDate') || null
+
+    // detail 관련 필드들 객체로 묶기
+    const detail = {
+        language: formData.get('language') || '',
+        pageCount: formData.get('pageCount') || '',
+        publisher: formData.get('publisher') || '',
+        edition: formData.get('edition') || '',
+        coverImageUrl: formData.get('coverImageUrl') || '',
+        description: formData.get('description') || ''
+    }
 
     return {
         title: title.trim(),
         author: author.trim(),
         isbn: isbn.trim(),
-        coverImageUrl: coverImageUrl.trim(),
         price: price.trim(),
-        publishDate: publishDate
+        publishDate: publishDate,
+        detail
     }
 }
 
