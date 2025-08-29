@@ -73,14 +73,14 @@ const validators = {
             return {
                 isValid: false,
                 message: messages.required.studentNumber,
-                field: 'studentNumber'
+                field: 'studentNumber' 
             }
         }
         
         // 2단계: 정규식 패턴 매칭 확인
         // patterns.studentNumber.test() : 정규식이 문자열과 매치되는지 확인 (true/false 반환)
         // .trim() : 앞뒤 공백 제거 후 검사
-        if (!patterns.studentNumber.test(studentNumber.trim())) {
+        if (!patterns.studentNumber.test(safeTrim(studentNumber))) {
             return { 
                 isValid: false, 
                 message: messages.format.studentNumber, 
@@ -95,7 +95,7 @@ const validators = {
     // 주소 필드 검증 함수
     address: (address) => {
         // 1단계: 필수 입력 확인
-        if (!address || address.trim().length === 0) {
+        if (isEmpty(address)) {
             return { 
                 isValid: false, 
                 message: messages.required.address, 
@@ -104,7 +104,7 @@ const validators = {
         }
         
         // 2단계: 최소 길이 확인 - 주소는 너무 짧으면 유효하지 않을 가능성이 높음
-        if (address.trim().length < 5) {
+        if (safeTrim(address).length < 5) {
             return { 
                 isValid: false, 
                 message: '주소는 최소 5글자 이상 입력해주세요.', 
