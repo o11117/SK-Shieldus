@@ -247,14 +247,7 @@ const renderStudentTable = (students) => {
     
     // 학생이 없는 경우
     if (students.length === 0) {
-        elements.tableBody.innerHTML = `
-            <tr>
-                <td colspan="7" style="text-align: center; color: #666; padding: 20px;">
-                    등록된 학생이 없습니다.
-                </td>
-            </tr>
-        `
-        return
+        return renderErrorTable('등록된 학생이 없습니다.')
     }
     
     // 각 학생 행 생성 (일반적인 for 루프 사용)
