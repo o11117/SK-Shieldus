@@ -86,6 +86,7 @@ const handleFormSubmit = async () => {
 // 폼 데이터 가져오기 (구조분해할당 활용)
 const getFormData = () => {
     const formData = new FormData(elements.form)
+    
     // 기본값과 함께 구조분해할당
     const title = formData.get('title') || ''
     const author = formData.get('author') || ''
