@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div>
       <MyComponent name="ReactJS"/>
-      <MyComponent />
+      <MyComponent age={100}/>
     </div>
   );
 };
