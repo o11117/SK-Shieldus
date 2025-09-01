@@ -28,7 +28,12 @@ class MyComponent extends Component {
     }; //handleChange
     handleEnter = (e) => {
         if (e.key === 'Enter') {
-
+            this.setState({
+                isValid: true,
+                //첫번째 Input엘리먼트 필드 초기화
+                message: '',
+            })
+            this.myUsername.focus();
         }
     }
 
