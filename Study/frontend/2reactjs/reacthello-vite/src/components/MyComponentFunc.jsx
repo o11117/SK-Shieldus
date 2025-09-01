@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-const MyComponentFunc = ({name, children}) => {
+const MyComponentFunc = ({ name, children }) => {
 
     const [value, setValue] = useState(0);
     const [inputs, setInputs] = useState({
@@ -8,11 +8,12 @@ const MyComponentFunc = ({name, children}) => {
         username: ''
     })
 
-    const {message, username} = inputs;
+    const { message, username } = inputs;
 
     //event handlers
     const handleChange = (e) => {
         setInputs({
+            ...inputs,
             [e.target.name]: e.target.value
         })
     }
@@ -25,6 +26,10 @@ const MyComponentFunc = ({name, children}) => {
             <button onClick={() => setValue(value + 1)}>증가</button>
             <button onClick={() => setValue(value - 1)}>감소</button>
             <hr />
+            <p>상태변수 message = {message}</p>
+            <input name="message" value={message} onChange={handleChange} />
+            <p>상태변수 username = {username}</p>
+            <input name="username" value={username} onChange={handleChange} />
         </div>
     );
 };
