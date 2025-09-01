@@ -1,24 +1,72 @@
-﻿body {
-    font-family: "맑은 고딕", "돋움", "굴림";               
-    /*
-    background: bg-color bg-image position/bg-size bg-repeat bg-origin bg-clip bg-attachment
-       bg-images : url('../images/bg.jpg') 
-       bg-repeat : no-repeat : 
-       bg-position (배경 위치) : left(가로위치-왼쪽) top(세로위치-상단) : 
-       bg-attachment (배경 고정) : fixed 페이지를 스크롤해도 배경은 움직이지 않음
-    */
-    
-    /*
-    background-size
-    : cover
-        비율 유지하며 요소 전체를 덮음
-        이미지 일부가 잘릴 수 있음
-        풀스크린 배경에 최적
-    : contain
-        비율 유지하며 요소 안에 완전 포함
-        여백이 생길 수 있음
-        로고, 아이콘에 최적
-    */
-    
+﻿/* background image에 images\bg.jpg 사용 */
+body {
+    /* backgroud */
+    background: url(../images/bg.jpg) no-repeat;
+    /* background-size */
+    background-size: cover;
+}
+#wrapper {
+   width: 700px;
+   margin: 0 auto;
+}
+nav {
+    border: 1px solid black;
+    background-color: black;
+}
+article {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+}
+nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+nav ul li {
+    height: 50px;
+    width: 25%;
+    display: flex;
+}
+nav ul li:hover {
+    height: 50px;
+    background-color: white;
+    border-radius: 5px 5px 0 0;
+
+}
+nav ul li:hover > a {
+    color: black
 }
 
+nav a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+nav a:hover {
+    color: black;
+}
+nav a.current {
+}
+/* 선택 */
+section {
+    border: 2px solid black;
+}
+
+footer {
+    color: white;
+    background-color: rgba(128, 128, 128);
+    border: 1px solid black;
+    padding: 20px;
+}
+/* images\icon.png 사용 */
+h2 {
+    margin: 0;
+}
+ol {
+    margin: 0;
+}
