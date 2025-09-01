@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './MyComponent.css';
 
 class MyComponent extends Component {
     //컴포넌트 내부에 상태변수를 포함하는 state 객체선언
     state = {
         value: 0,
         message: '',
-        username: ''
+        username: '',
+        isValid: false,
     };
     //event handler 함수선언
     // handleDecrement = function (){    
@@ -28,7 +30,7 @@ class MyComponent extends Component {
     render() {
         //destructuring assignment 
         const { name, age } = this.props;
-        const { value, message, username } = this.state;
+        const { value, message, username, isValid } = this.state;
         const { handleDecrement, handleChange } = this;
 
         return (
@@ -44,7 +46,9 @@ class MyComponent extends Component {
                 <p>상태변수 message = {message}</p>
                 <input name="message" value={message} onChange={handleChange} />
                 <p>상태변수 username = {username}</p>
-                <input name="username" value={username} onChange={handleChange} />
+                <input name="username" value={username} onChange={handleChange} 
+                    className={isValid ? 'success' : 'failure'}
+                />
 
             </div>
         );
