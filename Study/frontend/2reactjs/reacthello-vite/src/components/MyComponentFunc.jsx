@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyComponentFunction = () => {
+const MyComponentFunc = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const MyComponentFunction = () => {
     );
 };
 
-export default MyComponentFunction;
+export default MyComponentFunc;
