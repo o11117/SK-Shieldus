@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import './MyComponent.css';
 
 const MyComponentFunc = ({ name, children }) => {
 
     const [value, setValue] = useState(0);
     const [inputs, setInputs] = useState({
         message: '',
-        username: ''
+        username: '',
     })
+    const [valid, setValid] = useState(false);
 
+    const myUsername = useRef(null);
+    
     const { message, username } = inputs;
 
     //event handlers
@@ -16,6 +20,16 @@ const MyComponentFunc = ({ name, children }) => {
             ...inputs,
             [e.target.name]: e.target.value
         })
+    }
+    const handleEnter = (e) => {
+        if (e.key === 'Enter') {
+            setValid(true);
+            setInputs({
+                ...inputs,
+                message: '',
+            })
+            myUsername.current.focus();
+        }
     }
     return (
         <div>
@@ -27,9 +41,14 @@ const MyComponentFunc = ({ name, children }) => {
             <button onClick={() => setValue(value - 1)}>감소</button>
             <hr />
             <p>상태변수 message = {message}</p>
-            <input name="message" value={message} onChange={handleChange} />
+            <input name="message" value={message} onChange={handleChange}
+            onKeyDown={handleEnter}
+            />
             <p>상태변수 username = {username}</p>
-            <input name="username" value={username} onChange={handleChange} />
+            <input name="username" value={username} onChange={handleChange}
+                className={valid ? 'success' : 'failure'}
+                ref={myUsername}
+            />
         </div>
     );
 };
