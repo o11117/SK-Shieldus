@@ -12,4 +12,5 @@ export default defineConfig({
       { find: "@", replacement: '/src' },
       { find: "@components", replacement: '/src/components' }
     ]
+  }
 })
