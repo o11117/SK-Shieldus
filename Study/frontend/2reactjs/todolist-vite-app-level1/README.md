@@ -1,8 +1,8 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### React + RTK(Redux Toolkit) + Axios 사용
+* Vite 설정 변경
+    - `vite.config.js` 파일 수정
+    - 3000 포트로 변경
+    - 절대경로 src 폴더를 `@`와 매핑
+* RTK(Redux Toolkit) 설정
+* React-Redux를 사용해서 RTK 연결
+* Axios 사용하여 HTTP 요청 처리
