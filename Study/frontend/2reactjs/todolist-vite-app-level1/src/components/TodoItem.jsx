@@ -8,6 +8,15 @@ class TodoItem extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         return this.props.checked !== nextProps.checked;
     }
+
+    handleToggle = (id) => {
+        
+      }; //handleToggle
+    
+      handleRemove = (id) => {
+        
+      }; //handleRemove
+
     render() {
         const { text, checked, id, onToggle, onRemove } = this.props;
         return (
