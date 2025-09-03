@@ -117,9 +117,11 @@ public class BookService {
                 .publisher(publisher)
                 .build();
 
+        if (request.getDetailRequest() != null) {
         // Create book detail if provided
         if (request.getDetail() != null) {
             BookDetail bookDetail = BookDetail.builder()
+                    .language(request.getDetailRequest().getLanguage())
                     .description(request.getDetail().getDescription())
                     .language(request.getDetail().getLanguage())
                     .pageCount(request.getDetail().getPageCount())
@@ -147,20 +149,21 @@ public class BookService {
         Publisher publisher = publisherRepository.findById(request.getPublisherId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND,
                         "Publisher", "id", request.getPublisherId()));
-
         // Check if another book already has the ISBN
         if (!book.getIsbn().equals(request.getIsbn()) &&
                 bookRepository.existsByIsbn(request.getIsbn())) {
             throw new BusinessException(ErrorCode.ISBN_DUPLICATE, request.getIsbn());
         }
 
-        // Update book basic info
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());
         book.setIsbn(request.getIsbn());
         book.setPrice(request.getPrice());
         book.setPublishDate(request.getPublishDate());
         book.setPublisher(publisher);
+
+            BookDetail bookDetail = book.getBookDetail();
+
 
         // Update book detail if provided
         if (request.getDetail() != null) {
