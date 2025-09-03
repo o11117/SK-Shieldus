@@ -1,4 +1,4 @@
-import * as types from '@/actionsReducer';
+import * as types from '@/actions';
 
 //State 객체
 const initialState = {
@@ -18,4 +18,4 @@ export const toDoReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};
