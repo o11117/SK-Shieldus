@@ -16,7 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findByAuthor(String author);
 
-    List<Book> findByAuthorContainingIgnoreCase(String title);
+    List<Book> findByAuthorContainingIgnoreCase(String author);
 
     List<Book> findByTitleContainingIgnoreCase(String title);
 
@@ -27,4 +27,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByIsbnWithBookDetail(String isbn);
 
     boolean existsByIsbn(String isbn);
+
+    List<Book> findByPublisherId(Long publisherId);
+
+    @Query("SELECT COUNT(b) FROM Book b WHERE b.publisher.id = :publisherId")
+    Long countByPublisherId(@Param("publisherId") Long publisherId);
+
 }

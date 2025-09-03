@@ -28,10 +28,14 @@ public class Book {
     @Column(unique = true, nullable = false)
     private String isbn;
 
-
     private LocalDate publishDate;
 
     private Integer price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
+
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private BookDetail bookDetail;
