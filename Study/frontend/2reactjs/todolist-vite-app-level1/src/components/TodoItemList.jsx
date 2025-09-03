@@ -2,7 +2,8 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
-import { fetchAllTodos } from '@/actions'
+// import { fetchAllTodos } from '@/actions'
+import { fetchAllTodos } from '@/reducers/todoSlice'
 import TodoItem from '@components/TodoItem';
 
 class TodoItemList extends Component {
