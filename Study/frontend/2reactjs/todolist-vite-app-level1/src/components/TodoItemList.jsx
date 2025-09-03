@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
 import { fetchAllTodos } from '@/actions'
-import TodoItem from '@Components/TodoItem';
+import TodoItem from '@components/TodoItem';
 
 class TodoItemList extends Component {
     componentDidMount() {
