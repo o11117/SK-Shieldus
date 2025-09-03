@@ -29,7 +29,7 @@ public class BookService {
                 .map(BookDTO.Response::fromEntity)
                 .toList();
     }
-
+ 
     public BookDTO.Response getBookById(Long id) {
         Book book = bookRepository.findByIdWithBookDetail(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Book", "id", id));
