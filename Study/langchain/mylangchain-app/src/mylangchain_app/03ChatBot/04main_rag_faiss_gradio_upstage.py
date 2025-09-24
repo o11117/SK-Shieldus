@@ -4,14 +4,15 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+UPSTAGE_API_KEY = os.getenv("UPSTAGE_API_KEY")
+print(UPSTAGE_API_KEY[30:])
 
 # API 키 검증
-if not OPENAI_API_KEY:
-    raise ValueError("OPENAI_API_KEY가 설정되지 않았습니다. .env 파일을 확인해주세요.")
+if not UPSTAGE_API_KEY:
+    raise ValueError("UPSTAGE_API_KEY가 설정되지 않았습니다. .env 파일을 확인해주세요.")
 
 # langchain 패키지
-from langchain_openai import ChatOpenAI
+from langchain_upstage import UpstageEmbeddings, ChatUpstage
 from langchain_core.prompts import ChatPromptTemplate
 import gradio as gr
 
@@ -30,24 +31,23 @@ from gradio_pdf import PDF
 current_vectorstore = None
 current_pdf_path = None
 
-
 # pdf 파일을 읽어서 벡터 저장소에 저장
 def load_pdf_to_vector_store(pdf_file, chunk_size=1000, chunk_overlap=100):
     try:
         print(f"PDF 파일 로딩 중: {pdf_file}")
-
+        
         # PDF 파일 로딩
         loader = PyPDFLoader(pdf_file)
         documents = loader.load()
-
+        
         if not documents:
             raise ValueError("PDF 파일에서 텍스트를 추출할 수 없습니다.")
-
+        
         print(f"총 {len(documents)}페이지 로드됨")
 
         # 텍스트 분할
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=int(chunk_size),
+            chunk_size=int(chunk_size), 
             chunk_overlap=int(chunk_overlap),
             separators=["\n\n", "\n", ".", " ", ""]  # 더 자연스러운 분할을 위해
         )
@@ -56,17 +56,17 @@ def load_pdf_to_vector_store(pdf_file, chunk_size=1000, chunk_overlap=100):
 
         # 임베딩 모델 생성
         embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY, model="text-embedding-3-small")
-
+        
         # FAISS 벡터 저장소 생성 (배치 처리 불필요)
         print("FAISS 벡터 저장소 생성 중...")
         vectorstore = FAISS.from_documents(
-            documents=splits,
+            documents=splits, 
             embedding=embeddings
         )
-
+        
         print("벡터 저장소 생성 완료!")
         return vectorstore
-
+        
     except Exception as e:
         print(f"PDF 로딩 중 오류 발생: {str(e)}")
         raise e
@@ -97,7 +97,7 @@ def retrieve_and_generate_answers(vectorstore, message, temperature=0):
 
         # ChatModel 인스턴스 생성
         model = ChatOpenAI(
-            model='gpt-3.5-turbo',
+            model='gpt-3.5-turbo', 
             temperature=float(temperature),
             api_key=OPENAI_API_KEY
         )
@@ -112,7 +112,7 @@ def retrieve_and_generate_answers(vectorstore, message, temperature=0):
         response = rag_chain.invoke({'input': message})
 
         return response['answer']
-
+        
     except Exception as e:
         return f"답변 생성 중 오류가 발생했습니다: {str(e)}"
 
@@ -120,14 +120,14 @@ def retrieve_and_generate_answers(vectorstore, message, temperature=0):
 # Gradio 인터페이스에서 사용할 함수
 def process_pdf_and_answer(message, history, pdf_file, chunk_size, chunk_overlap, temperature):
     global current_vectorstore, current_pdf_path
-
+    
     # 입력 검증
     if not pdf_file:
         return "PDF 파일을 업로드해주세요."
-
+    
     if not message.strip():
         return "질문을 입력해주세요."
-
+    
     try:
         # PDF 파일이 변경되었거나 처음 로드하는 경우에만 벡터 저장소 재생성
         if current_vectorstore is None or current_pdf_path != pdf_file:
@@ -142,9 +142,9 @@ def process_pdf_and_answer(message, history, pdf_file, chunk_size, chunk_overlap
 
         # 답변 생성
         answer = retrieve_and_generate_answers(current_vectorstore, message, temperature)
-
+        
         return answer
-
+        
     except Exception as e:
         error_msg = f"처리 중 오류가 발생했습니다: {str(e)}"
         print(error_msg)
@@ -156,43 +156,43 @@ def create_interface():
     with gr.Blocks(title="PDF 질의응답 시스템") as demo:
         gr.Markdown("# PDF 질의응답 시스템")
         gr.Markdown("PDF 파일을 업로드하고 질문하면 AI가 문서 내용을 바탕으로 답변해드립니다.")
-
+        
         with gr.Row():
             with gr.Column(scale=1):
                 pdf_input = PDF(label="PDF 파일 업로드")
-
+                
                 with gr.Accordion("고급 설정", open=False):
                     chunk_size = gr.Number(
-                        label="청크 크기",
-                        value=1000,
+                        label="청크 크기", 
+                        value=1000, 
                         info="텍스트를 나누는 단위 (500-2000 권장)"
                     )
                     chunk_overlap = gr.Number(
-                        label="청크 중복",
-                        value=200,
+                        label="청크 중복", 
+                        value=200, 
                         info="청크 간 중복되는 문자 수 (50-300 권장)"
                     )
                     temperature = gr.Slider(
-                        label="창의성 수준",
-                        minimum=0,
-                        maximum=1,
-                        step=0.1,
+                        label="창의성 수준", 
+                        minimum=0, 
+                        maximum=1, 
+                        step=0.1, 
                         value=0.0,
                         info="0: 정확성 우선, 1: 창의성 우선"
                     )
-
+            
             with gr.Column(scale=2):
                 chatbot = gr.Chatbot(label="💬 대화", height=500)
                 msg = gr.Textbox(
-                    label="질문 입력",
+                    label="질문 입력", 
                     placeholder="PDF 내용에 대해 질문해주세요...",
                     lines=2
                 )
-
+                
                 with gr.Row():
                     submit_btn = gr.Button("📤 질문하기", variant="primary")
                     clear_btn = gr.Button("🗑️ 대화 초기화")
-
+        
         # 예시 질문들
         gr.Markdown("### 질문 예시")
         example_questions = [
@@ -200,58 +200,57 @@ def create_interface():
             "기타소득에는 어떤 것들이 있나요?",
             "세율은 어떻게 적용되나요?"
         ]
-
+        
         example_buttons = []
         with gr.Row():
             for question in example_questions:
                 btn = gr.Button(question, size="sm")
                 example_buttons.append(btn)
-
+        
         # 이벤트 처리
         def respond(message, chat_history, pdf_file, chunk_size, chunk_overlap, temperature):
             if not message.strip():
                 return chat_history, ""
-
+            
             # 답변 생성
             bot_message = process_pdf_and_answer(
                 message, chat_history, pdf_file, chunk_size, chunk_overlap, temperature
             )
-
+            
             # 채팅 히스토리에 추가
             chat_history.append((message, bot_message))
             return chat_history, ""
-
+        
         # 버튼 이벤트 연결
         submit_btn.click(
-            respond,
-            [msg, chatbot, pdf_input, chunk_size, chunk_overlap, temperature],
+            respond, 
+            [msg, chatbot, pdf_input, chunk_size, chunk_overlap, temperature], 
             [chatbot, msg]
         )
-
+        
         msg.submit(
-            respond,
-            [msg, chatbot, pdf_input, chunk_size, chunk_overlap, temperature],
+            respond, 
+            [msg, chatbot, pdf_input, chunk_size, chunk_overlap, temperature], 
             [chatbot, msg]
         )
-
+        
         clear_btn.click(lambda: ([], ""), outputs=[chatbot, msg])
-
+        
         # 예시 질문 버튼들
         for i, btn in enumerate(example_buttons):
             btn.click(
                 lambda q=example_questions[i]: q,
                 outputs=msg
             )
-
+    
     return demo
-
 
 # 인터페이스 실행
 if __name__ == "__main__":
     demo = create_interface()
     demo.launch(
         share=False,  # 로컬에서만 실행
-        debug=True,  # 디버그 모드
+        debug=True,   # 디버그 모드
         server_name="127.0.0.1",  # 로컬 접속만 허용
         server_port=7860
     )
