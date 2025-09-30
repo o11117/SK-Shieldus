@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-@Profile("prod")
+@Profile("local")
 @Slf4j
 public class EmpDepInsertRunner implements ApplicationRunner {
     @Autowired
