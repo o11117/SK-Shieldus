@@ -4,9 +4,9 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 
 # 여러 파일 복사
-COPY index.html .
-COPY style.css .
-COPY images/ ./images/
+COPY app/index.html .
+COPY app/style.css .
+COPY app/images/ ./images/
 
 # 포트 알리기 (실제로 열지는 않지만 문서화)
 EXPOSE 80
