@@ -1,0 +1,7 @@
+# 이미지 빌드
+docker build -t my-node-app .
+
+# 컨테이너 실행
+docker run -d -p 3000:3000 --name node-app my-node-app
+
+# http://localhost:3000 에서 확인

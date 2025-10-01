@@ -1,0 +1,12 @@
+# 2. Docker 이미지 빌드
+docker build -t fastapi-app .
+
+# 3. 컨테이너 실행
+docker run -d -p 8000:8000 --name my-fastapi fastapi-app
+
+#테스트 방법
+http://localhost:8000/
+http://localhost:8000/hello/World
+http://localhost:8000/health
+http://localhost:8000/info
+
