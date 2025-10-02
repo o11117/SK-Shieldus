@@ -1,0 +1,30 @@
+services:
+  mysql-svc:
+    image: mariadb:10.11.8
+    ports:
+    - "3306:3306"
+    volumes:
+      - C:/mydeploy/docker-volume/mariadb/store:/var/lib/mysql
+    env_file: C:/mydeploy/docker-volume/mariadb/env/.env
+
+  mywas:
+    image: vega2kgkube/springbootreactjs:0.1
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-svc
+    restart: always
+    env_file: C:/mydeploy/docker-volume/mariadb/env/.env
+    # environment:
+      # DB_HOST: 'mysql-svc'
+      # DB_PORT: '3306'
+      # DB_DATABASE: 'boot_db'
+      # DB_USERNAME: 'boot'
+      # DB_PASSWORD: 'boot'
+
+  mynginx:
+    image: vega2k8s/springbootreactjs:client0.3
+    depends_on:
+      - mywas
+    ports:
+      - "80:80"
