@@ -10,3 +10,46 @@ docker run --name mydb-svc -d --net msanet --net-alias=mydb-svc -p 3306:3306 \
 -e MYSQL_PASSWORD='boot' \
 -e MYSQL_ROOT_HOST='%' \
 mariadb:10.11.8
+
+#SpringBoot 컨테이너 실행
+docker run --name myboot-svc -d -p 8080:8080 --net msanet --net-alias=myboot-svc \
+-e DB_HOST='mydb-svc' \
+-e DB_PORT='3306' \
+-e DB_DATABASE='boot_db' \
+-e DB_USERNAME='boot' \
+-e DB_PASSWORD='boot' \
+o11117/springbootreactjs:0.2
+
+#ReactJS 컨테이너 실행
+docker run --name react-svc -d -p 80:80 --net msanet --net-alias=react-svc o11117/springbootreactjs:client0.2\
+
+#docker-compose.yml
+
+cat <<EOF| sudo tee /work/myproject/docker-compose.yml
+
+services:
+  mydb-svc:
+    image: mariadb:10.11.8
+    ports:
+    - "3306:3306"
+    volumes:
+      - /home/r/docker-volume/mariadb/conf.d:/etc/mysql/conf.d
+      - /home/r/docker-volume/mariadb/store:/var/lib/mysql
+    env_file: /home/r/docker-volume/mariadb/env/.env
+
+  myboot-svc:
+    image: myuser/springbootreactjs:0.1
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mydb-svc
+    restart: always
+    env_file: /home/r/docker-volume/mariadb/env/.env
+
+  myreact-svc:
+    image: myuser/springbootreactjs:client0.1
+    depends_on:
+      - myboot-svc
+    ports:
+      - "80:80"
+EOF
