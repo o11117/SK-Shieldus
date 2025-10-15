@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: boot-kube-rs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boot-kube
+      tier: app
+  template:
+    metadata:
+      labels:
+        app: boot-kube
+        tier: app
+    spec:
+      containers:
+        - name: boot-kube
+          image: bmsvega2k/boot-kube:0.1

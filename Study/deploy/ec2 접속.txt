@@ -22,7 +22,7 @@ o11117/springbootreactjs:0.2
 
 #ReactJS 컨테이너 실행
 docker run --name react-svc -d -p 80:80 --net msanet --net-alias=react-svc o11117/springbootreactjs:client0.2\
-
+o11117/pdf-rag-app:0.1
 #docker-compose.yml
 
 cat <<EOF| sudo tee /work/myproject/docker-compose.yml
@@ -53,3 +53,23 @@ services:
     ports:
       - "80:80"
 EOF
+
+aws ssm get-parameter \
+    --name "OPENAI_API_KEY" \
+    --with-decryption \
+    --region us-east-2
+
+aws ssm get-parameter \
+--name "OPENAI_API_KEY" \
+--with-decryption \
+--query 'Parameter.Value' \
+--output text \
+--region us-east-2
+
+OPENAI_API_KEY=$(aws ssm get-parameter --name "OPENAI_API_KEY" --with-decryption --query 'Parameter.Value' --output text --region us-east-2) docker-compose up -d
+
+cat > rag-app.sh << EOF
+OPENAI_API_KEY=$(aws ssm get-parameter --name "OPENAI_API_KEY" --with-decryption --query 'Parameter.Value' --output text --region us-east-2) docker-compose up -d
+EOF
+
+langchain]# docker logs 5cfa68 --tail 100 -f

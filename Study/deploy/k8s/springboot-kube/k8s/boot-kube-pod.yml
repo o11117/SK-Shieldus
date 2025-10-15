@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: boot-kube
+  labels:
+    app: boot-kube
+spec:
+  containers:
+    - name: bootapp
+      image: bmsvega2k/boot-kube:0.1
