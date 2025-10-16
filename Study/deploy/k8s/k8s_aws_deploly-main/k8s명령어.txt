@@ -64,8 +64,35 @@ kubectl get nodes -o wide
 # Orders RESTAPI Service (LoadBalancer 타입) 생성하기
 kubectl apply -f ./objects/app-boot-svc-loadbal.yml
 
+# service 확인하면 LoadBalancer 타입인 서비스의 IP가 보여짐
+kubectl get svc
+
 # Orders API url
 http://34.41.150.75:30090/orders
+
+http://34.121.142.244:8080/orders
+
+# ConfigMap 오브젝트 생성하기
+kubectl apply -f ./object/mysql-configMap.yaml
+
+확인
+kubectl get cm
+
+# Secrets 오브젝트 생성하기
+kubectl apply -f ./object/mysql-secrets.yaml
+
+확인
+kubectl get secret
+
+#생성된 ConfigMap과 Secrets 객체를 사용하는 DB 디플로이먼트 객체 생성하기
+kubectl apply -f ./object/db-mysql-svc-secret.yml
+
+#생성된 ConfigMap과 Secrets 객체를 사용하는 REST API 디플로이먼트 객체 생성하기
+kubectl apply -f ./object/app-boot-deployment-secret.yml
+
+
+
+
 
 NodePort 서비스 요청하기
 SpringBoot
