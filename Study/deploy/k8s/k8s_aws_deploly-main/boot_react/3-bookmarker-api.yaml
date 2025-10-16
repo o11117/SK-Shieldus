@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookmarker-api-svc
+spec:
+  type: LoadBalancer
+  # type: NodePort
+  selector:
+    app: bookmarker-api-pod
+  ports:
+    - name: app-port-mapping
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30090
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookmarker-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookmarker-api-pod
+  template:
+    metadata:
+      labels:
+        app: bookmarker-api-pod
+    spec:
+      containers:
+        - name: bookmarker
+          image: vega2k8s/springbootnextjs:0.2
+          ports:
+            - containerPort: 8080
+          
+          # 리소스 제한 추가 (Noisy Neighbor 문제 방지)
+          resources:
+            limits:
+              cpu: "1"        # 최대 1 CPU 코어 사용 제한
+              memory: "1Gi"   # 최대 1GB 메모리 사용 제한
+            requests:
+              cpu: "0.3"     # 최소 0.5 CPU 코어 보장 (500 milliCPU)
+              memory: "512Mi" # 최소 512MB 메모리 보장
+          
+          # 헬스 체크 추가 (선택 사항)
+          livenessProbe:
+            httpGet:
+              path: /actuator/health  # Spring Actuator health endpoint
+              port: 8080
+            initialDelaySeconds: 30  # 컨테이너 시작 후 30초 후부터 체크
+            periodSeconds: 10         # 10초마다 체크
+            failureThreshold: 3       # 3회 연속 실패시 재시작
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 5    # 컨테이너 시작 후 5초 후부터 체크
+            periodSeconds: 5          # 5초마다 체크
+          
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: postgres_host
+                  name: bookmarker-config
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: postgres_port
+                  name: bookmarker-config
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  key: postgres_dbname
+                  name: bookmarker-config
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: postgres_username
+                  name: bookmarker-secrets
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: postgres_password
+                  name: bookmarker-secrets

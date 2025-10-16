@@ -1,0 +1,151 @@
+ssh -i ./keys/bootKey.pem ec2-user@3.38.180.223
+
+ls -l /home/r/docker-volume/mariadb/conf.d
+cat /home/r/docker-volume/mariadb/conf.d/my.cnf
+
+mkdir -p /home/r/docker-volume/mariadb/store
+ls -l /home/r/docker-volume/mariadb
+ conf.d/ 
+ store/
+
+docker run --name mysql-svc -d --net msanet --net-alias=mysql-svc -p 3306:3306 \
+-v /home/r/docker-volume/mariadb/conf.d:/etc/mysql/conf.d \
+-v /home/r/docker-volume/mariadb/store:/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD='maria' \
+-e MYSQL_DATABASE='boot_db' \
+-e MYSQL_USER='boot' \
+-e MYSQL_PASSWORD='boot' \
+-e MYSQL_ROOT_HOST='%' \
+mariadb:10.11.8
+
+docker run --name myboot-svc -d -p 8080:8080 --net msanet --net-alias=myboot-svc \
+-e DB_HOST='mysql-svc' \
+-e DB_PORT='3306' \
+-e DB_DATABASE='boot_db' \
+-e DB_USERNAME='boot' \
+-e DB_PASSWORD='boot' \
+vega2k8s/springbootreactjs:0.6
+
+docker run --name react-svc -d -p 80:80 --net msanet --net-alias=react-svc  \
+myuser/springbootreactjs:client0.8
+
+SpringBoot 조회 테스트
+GET
+http://43.202.37.197:8080/api/employees
+
+한글로 데이터 등록 테스트
+POST
+http://43.202.37.197:8080/api/employees
+{
+	"firstName":"둘리",
+	"lastName":"박",
+	"email":"aa@a.com",
+	"departmentId":1	
+}
+
+프론트엔드 실행하기 전에 .env.production 파일을 반드시 수정하고 Image 다시 빌드 
+.env.production
+VITE_APIURL=http://43.202.37.197:8080/api
+
+변경된 Client Image로 docker run 해야 합니다.
+
+springboot 로그 보기
+docker logs --tail 100 -f myboot-svc
+
+SpringBoot의 CorsConfig 클래스 수정하고 Image 다시 빌드 
+변경된 Sever Image로 docker run 해야 합니다.
+Run 하기 전에
+$ docker stop myboot-svc
+$ docker rm myboot-svc
+
+#모든 컨테이너 중지
+docker stop $(docker ps -a -q)
+
+#모든 컨테이너 삭제
+docker rm -f $(docker ps -a -q)
+
+# /home/r/docker-volume/mariadb/env 폴더 생성 
+mkdir -p /home/r/docker-volume/mariadb/env
+
+#.env 파일생성
+cat <<'EOF' | sudo tee /home/r/docker-volume/mariadb/env/.env
+MYSQL_HOST='mysql-svc'
+MYSQL_PORT='3306'
+MYSQL_ROOT_PASSWORD='maria'
+MYSQL_DATABASE='boot_db'
+MYSQL_USER='boot'
+MYSQL_PASSWORD='boot'
+MYSQL_ROOT_HOST='%'
+
+DB_HOST=${MYSQL_HOST}
+DB_PORT=${MYSQL_PORT}
+DB_DATABASE=${MYSQL_DATABASE}
+DB_USERNAME=${MYSQL_USER}
+DB_PASSWORD=${MYSQL_PASSWORD}
+EOF
+
+# .env 파일 확인
+ls -al /home/r/docker-volume/mariadb/env/.env
+cat /home/r/docker-volume/mariadb/env/.env
+
+# docker-compose.yml
+cat <<EOF| sudo tee /work/myproject/docker-compose.yml
+
+services:
+  mysql-svc:
+    image: mariadb:10.11.8
+    ports:
+    - "3306:3306"
+    volumes:
+      - /home/r/docker-volume/mariadb/conf.d:/etc/mysql/conf.d
+      - /home/r/docker-volume/mariadb/store:/var/lib/mysql
+    env_file: /home/r/docker-volume/mariadb/env/.env
+
+  myboot-svc:
+    image: myuser/springbootreactjs:0.6
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-svc
+    restart: always
+    env_file: /home/r/docker-volume/mariadb/env/.env
+
+  mynginx:
+    image: myuser/springbootreactjs:client0.8
+    depends_on:
+      - myboot-svc
+    ports:
+      - "80:80"
+EOF
+
+# ip 확인하기
+curl ifconfig.io
+
+python image run
+docker run -p 7860:7860 -e OPENAI_API_KEY=your-key myuser/pdf-rag-app:0.2
+
+http://3.38.180.223:7860
+
+#docker-compose.yml
+
+cat <<EOF| sudo tee /work/langchain/docker-compose.yml
+services:
+  pdf-rag-app:
+    image: vega2k8s/pdf-rag-app:0.2
+    ports:
+      - "7860:7860"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      # PDF 업로드 파일을 호스트에 저장
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7860/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+EOF      

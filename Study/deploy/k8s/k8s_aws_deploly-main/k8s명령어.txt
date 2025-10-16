@@ -1,0 +1,81 @@
+Kubectl 명령어 
+
+client / server 버전 확인
+kubectl version
+
+client 버전 확인
+kubectl version --client
+
+minikube 설치 디렉토리
+C:\Program Files\Kubernetes\Minikube
+
+Docker 드라이버로 minikube 시작
+minikube start --driver=docker
+
+현재 드라이버 확인
+minikube config get driver
+
+minikube 종료
+minikube stop
+
+
+kubectl run boot-kube --image bmsvega2k/boot-kube:0.1
+kubectl get pod
+kubectl logs boot-kube
+
+docker build -t vega2k8s/springbootnextjs:0.1 .
+
+Google Cloud CLI 명령어
+
+gcloud version
+
+gke-gcloud-auth-plugin --version
+
+gcloud container clusters get-credentials boot-nextjs --zone us-central1-c --project vast-nectar-463902-h8
+
+kubectl config view
+
+# git bash 에서만 가능
+kubectl describe nodes | grep -A 10 "Allocated resources"
+
+# 리소스 요청량 모니터링:
+kubectl top nodes
+kubectl top pods
+
+NodePort 서비스 요청하기
+SpringBoot
+http://34.70.247.76:30090/api/bookmarks
+http://34.42.73.32:30090/api/bookmarks
+http://34.27.221.173:30090/api/bookmarks
+
+LoadBalancer 서비스 요청하기
+http://34.28.247.244:8080/api/bookmarks
+
+NodePort
+Nextjs 
+http://34.70.247.76:30080
+http://34.42.73.32:30080
+
+LoadBalancer
+Nextjs
+http://34.42.169.112:3000
+
+
+kubectl create secret generic pdf-rag-secrets \
+  --from-literal=OPENAI_API_KEY="$(gcloud secrets versions access latest --secret=OPENAI_API_KEYS)"
+
+kubectl apply -f ./k8s_python/1-config.yml
+kubectl apply -f ./k8s_python/2-deployment.yml
+kubectl apply -f ./k8s_python/3-service.yml
+
+kubectl get node
+
+kubectl get secret
+
+kubectl get cm
+
+kubectl get po,deploy,service
+
+kubectl logs pod/pdf-rag-deployment-b79c945bb-6dxgx
+
+http://34.74.76.123:7860

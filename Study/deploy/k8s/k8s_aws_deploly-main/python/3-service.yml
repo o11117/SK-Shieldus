@@ -1,0 +1,15 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: pdf-rag-service
+  labels:
+    app: pdf-rag
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 7860
+    protocol: TCP
+  selector:
+    app: pdf-rag

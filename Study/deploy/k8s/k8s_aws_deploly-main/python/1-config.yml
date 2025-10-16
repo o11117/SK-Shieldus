@@ -1,0 +1,8 @@
+# configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pdf-rag-config
+data:
+  PYTHONUNBUFFERED: "1"
+  PYTHONPATH: "/app"  

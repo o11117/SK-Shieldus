@@ -1,0 +1,135 @@
+# API 버전과 리소스 종류 정의
+apiVersion: v1  # Kubernetes API 버전
+kind: PersistentVolumeClaim  # 영구 저장소 요청 리소스
+metadata:
+  name: postgres-pv-claim  # PVC 이름
+spec:
+  accessModes:
+    - ReadWriteOnce  # 단일 노드에서 읽기/쓰기 가능
+  resources:
+    requests:
+      storage: 1Gi  # 1GB 저장소 요청
+  # 필요시 고성능 스토리지 클래스 지정 (주석 해제하여 사용)
+  # storageClassName: ssd  # SSD 스토리지 클래스 사용
+
+---
+# Service 설정 부분
+apiVersion: v1
+kind: Service  # 서비스 리소스
+metadata:
+  name: postgres-svc  # 서비스 이름
+spec:
+  type: ClusterIP  # 클러스터 내부에서만 접근 가능한 서비스 타입
+  selector:
+    app: postgres-pod  # 이 서비스가 연결될 파드의 라벨
+  ports:
+    - port: 5432  # 서비스가 노출할 포트
+      targetPort: 5432  # 파드에서 실제로 서비스하는 포트
+
+---
+# Deployment 설정 부분
+apiVersion: apps/v1
+kind: Deployment  # 디플로이먼트 리소스
+metadata:
+  name: postgres-deployment  # 디플로이먼트 이름
+spec:
+  replicas: 1  # 실행할 파드 복제본 수 (1로 설정하여 단일 인스턴스)
+  selector:
+    matchLabels:
+      app: postgres-pod  # 관리할 파드의 라벨 선택기
+  template:  # 파드 템플릿 정의
+    metadata:
+      labels:
+        app: postgres-pod  # 파드 라벨
+    spec:
+      containers:
+        - name: postgres  # 컨테이너 이름
+          image: "postgres:14-alpine"  # 사용할 도커 이미지
+          ports:
+            - containerPort: 5432  # 컨테이너가 노출할 포트
+          
+          # 환경 변수 설정
+          env:
+            # PostgreSQL 사용자 이름 (시크릿에서 가져옴)
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bookmarker-secrets  # 시크릿 이름
+                  key: postgres_username    # 시크릿 내 키 이름
+                  
+            # PostgreSQL 비밀번호 (시크릿에서 가져옴)
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bookmarker-secrets
+                  key: postgres_password
+                  
+            # PostgreSQL 데이터베이스 이름 (컨피그맵에서 가져옴)
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: bookmarker-config
+                  key: postgres_dbname
+                  
+            # PostgreSQL 데이터 디렉토리 위치
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+              
+            # PostgreSQL 성능 튜닝 파라미터들
+            - name: POSTGRES_MAX_CONNECTIONS
+              value: "100"  # 동시 연결 최대 수 제한
+            - name: SHARED_BUFFERS
+              value: 128MB  # 공유 메모리 버퍼 크기
+            - name: WORK_MEM
+              value: 4MB     # 단일 작업당 사용 메모리 제한
+            - name: MAX_WAL_SIZE
+              value: 1GB    # WAL(Write-Ahead Log) 최대 크기
+          
+          # 리소스 제한 설정 (Noisy Neighbor 문제 방지)
+          resources:
+            limits:  # 컨테이너가 사용할 수 있는 최대 리소스
+              cpu: "1"      # 최대 2 CPU 코어 사용 가능
+              memory: "1Gi" # 최대 2GB 메모리 사용 가능
+            requests:  # 컨테이너가 보장받을 최소 리소스
+              cpu: "0.3"    # 최소 0.5 CPU 코어 보장
+              memory: "512Mi" # 최소 1GB 메모리 보장
+          
+          # 볼륨 마운트 설정
+          volumeMounts:
+            - name: postgres-storage  # 볼륨 이름
+              mountPath: /var/lib/postgresql/data  # 컨테이너 내 마운트 경로
+          
+          # 헬스 체크 설정
+          livenessProbe:  # 컨테이너가 살아있는지 확인
+            exec:
+              command:
+                - pg_isready  # PostgreSQL 연결 가능 여부 확인 도구
+                - -U
+                - $(POSTGRES_USER)  # 환경 변수로 설정된 사용자명 사용
+                - -d
+                - $(POSTGRES_DB)    # 환경 변수로 설정된 DB명 사용
+            initialDelaySeconds: 30  # 컨테이너 시작 후 30초 후부터 체크 시작
+            periodSeconds: 10       # 10초마다 체크
+            timeoutSeconds: 5       # 5초 내에 응답이 없으면 실패로 간주
+            
+          readinessProbe:  # 컨테이너가 서비스 요청을 처리할 준비가 되었는지 확인
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - $(POSTGRES_USER)
+                - -d
+                - $(POSTGRES_DB)
+            initialDelaySeconds: 5  # 컨테이너 시작 후 5초 후부터 체크 시작
+            periodSeconds: 10
+            timeoutSeconds: 5
+      
+      # 필요시 특정 노드에 배치하기 위한 설정 (주석 해제하여 사용)
+      # nodeSelector:
+      #   disktype: ssd  # SSD가 있는 노드에 배치
+      
+      # 볼륨 정의
+      volumes:
+        - name: postgres-storage  # 볼륨 이름
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim  # 앞에서 정의한 PVC 사용

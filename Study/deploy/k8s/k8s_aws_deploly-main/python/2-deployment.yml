@@ -1,0 +1,56 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pdf-rag-deployment
+  labels:
+    app: pdf-rag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pdf-rag
+  template:
+    metadata:
+      labels:
+        app: pdf-rag
+    spec:
+      containers:
+      - name: pdf-rag-app
+        image: vega2k8s/pdf-rag-app:0.3
+        ports:
+        - containerPort: 7860
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: pdf-rag-secrets
+              key: OPENAI_API_KEY
+        envFrom:
+        - configMapRef:
+            name: pdf-rag-config
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 7860
+        #   initialDelaySeconds: 60
+        #   periodSeconds: 30
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 7860
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10
+        volumeMounts:
+        - name: uploads-volume
+          mountPath: /app/uploads
+      volumes:
+      - name: uploads-volume
+        emptyDir: {}
