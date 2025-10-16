@@ -31,7 +31,9 @@ gcloud version
 
 gke-gcloud-auth-plugin --version
 
-gcloud container clusters get-credentials boot-react-cluster --zone us-central1-a --project balmy-cab-475301-t7
+gcloud container clusters get-credentials boot-react-cluster --zone us-central1-a --project shining-axon-474805-r9
+
+kubectl get node
 
 kubectl config view
 
@@ -41,6 +43,12 @@ kubectl describe nodes | grep -A 10 "Allocated resources"
 # 리소스 요청량 모니터링:
 kubectl top nodes
 kubectl top pods
+
+# MariaDB Service 생성하기
+kubectl apply -f ./objects/db-mysql-svc.yml
+# 객체 확인
+kubectl get all
+
 
 NodePort 서비스 요청하기
 SpringBoot
