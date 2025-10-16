@@ -49,6 +49,23 @@ kubectl apply -f ./objects/db-mysql-svc.yml
 # 객체 확인
 kubectl get all
 
+# Orders RESTAPI Deployment 생성하기
+kubectl apply -f ./objects/app-boot-deployment.yml
+
+# Orders RESTAPI Service (NodePort 타입) 생성하기
+kubectl apply -f ./objects/app-boot-svc-nodeport.yml
+
+# service 확인
+kubectl get svc
+
+# service 접근을 위한 EXTERNAL - IP 확인하기
+kubectl get nodes -o wide
+
+# Orders RESTAPI Service (LoadBalancer 타입) 생성하기
+kubectl apply -f ./objects/app-boot-svc-loadbal.yml
+
+# Orders API url
+http://34.41.150.75:30090/orders
 
 NodePort 서비스 요청하기
 SpringBoot
