@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+spec:
+  selector:
+    matchLabels:
+      app: mysql-pod
+      tier: db
+  template:
+    metadata:
+      labels:
+        app: mysql-pod
+        tier: db
+    spec:
+      containers:
+        - name: mariadb
+          image: mariadb:10.4.16
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: maria
+            - name: MYSQL_DATABASE
+              value: boot_db
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+spec:
+  #type: ClusterIP
+  ports:
+    - port: 3306
+      protocol: TCP
+  selector:
+    app: mysql-pod
+    tier: db

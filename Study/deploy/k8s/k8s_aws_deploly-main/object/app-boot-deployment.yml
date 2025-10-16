@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boot-crud-deploy
+spec:
+  selector:
+    matchLabels:
+      app: boot-crud
+      tier: app
+  template:
+    metadata:
+      labels:
+        app: boot-crud
+        tier: app
+    spec:
+      containers:
+        - name: boot-crud
+          image: bmsvega2k/boot-crud:0.1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: "mysql-svc"
+            - name: DB_NAME
+              value: "boot_db"
+            - name: DB_USERNAME
+              value: "root"
+            - name: DB_PASSWORD # Setting Database password from Secret
+              value: "maria"

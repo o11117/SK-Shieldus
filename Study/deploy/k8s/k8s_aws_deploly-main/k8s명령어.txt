@@ -31,7 +31,7 @@ gcloud version
 
 gke-gcloud-auth-plugin --version
 
-gcloud container clusters get-credentials boot-nextjs --zone us-central1-c --project vast-nectar-463902-h8
+gcloud container clusters get-credentials boot-react-cluster --zone us-central1-a --project balmy-cab-475301-t7
 
 kubectl config view
 

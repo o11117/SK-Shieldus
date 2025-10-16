@@ -1,0 +1,88 @@
+# Define a 'Persistent Voulume Claim'(PVC) for Mysql Storage, dynamically provisioned by cluster
+# 쿠버네티스에 "저장소 1GB 주세요!"라고 주문하는 부분
+# 클러스터가 자동으로 실제 저장소(PV)를 만들어줌
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim # 저장소 주문서 이름 (나중에 Pod에서 이 이름으로 찾음)
+  labels:
+    app: mysql
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce   # 한번에 하나의 Pod만 읽기/쓰기 가능 (동시 사용 불가)
+  resources:
+    requests:
+      storage: 1Gi    # 저장소 크기: 1GB 요청
+---
+# Configure 'Deployment' of mysql server
+# MySQL 컨테이너를 어떻게 실행할지 정의하는 부분
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    tier: database
+spec:
+  selector:           # 어떤 Pod를 관리할지 선택하는 기준
+    matchLabels:
+      app: mysql      # "app: mysql" 라벨이 있는 Pod를 관리합니다
+      tier: database  # "tier: database" 라벨이 있는 Pod를 관리합니다
+  strategy:
+    type: Recreate    # Pod 업데이트 방식: 먼저 다 끄고 새로 만듦 (데이터 안전)
+  template:           # Pod 생성에 사용할 템플릿
+    metadata:
+      labels:         # Pod에 붙일 라벨 (위의 selector와 똑같이 맞춤)
+        app: mysql
+        tier: database
+    spec:
+      containers:
+        - image: mariadb:10.4.16 # image from docker-hub
+          args:
+            # 도커 이미지 버그를 피하기 위한 작업 around
+            - "--ignore-db-dir=lost+found" # Workaround for https://github.com/docker-library/mysql/issues/186
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: maria
+#              valueFrom :
+#                secretKeyRef :
+#                  name : mysql-secrets
+#                  key :  password
+
+            - name: MYSQL_DATABASE # Setting Database Name from a 'ConfigMap'
+              value: boot_db
+#              valueFrom :
+#                configMapKeyRef :
+#                  name : db-config
+#                  key :  dbName
+
+          ports:
+            - containerPort: 3306
+              name: mysql      # 포트 이름 (Service에서 연결할 때 사용)
+          volumeMounts:        # PVC에서 받은 저장소를 컨테이너에 연결
+            - name: mysql-persistent-storage  # volumes에서 정의한 이름
+              mountPath: /var/lib/mysql       # 컨테이너 안에서 저장소가 보일 위치
+      volumes:              # Pod에서 사용할 저장소 정의
+        - name: mysql-persistent-storage # 저장소 이름 (volumeMounts에서 사용)
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim   # 위에서 만든 PVC 주문서 사용
+---
+# Define a 'Service' To Expose mysql to Other Services
+# 다른 서비스들이 MySQL에 접속할 수 있게 해주는 문지기
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql  # 서비스 이름 (DNS에서 'mysql'로 접속 가능)
+  labels:
+    app: mysql
+    tier: database
+spec:
+  ports:
+    - port: 3306        # 서비스가 열어줄 포트 (외부에서 접속하는 포트)
+      targetPort: 3306  # 목적지: Pod의 3306포트로 연결
+  selector:             # 어떤 Pod에 연결할지 선택 기준
+    app: mysql          # "app: mysql" Pod에 연결
+    tier: database      # "tier: database" Pod에 연결
+  clusterIP: None       # ClusterIP 사용 안함 → Headless Service

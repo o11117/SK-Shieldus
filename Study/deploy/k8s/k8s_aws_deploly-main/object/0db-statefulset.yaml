@@ -1,0 +1,80 @@
+# [StatefulSet: 안정적인 데이터베이스 운영]
+# MySQL을 StatefulSet으로 운영하여 Pod 이름과 저장소가 안정적으로 유지됨
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    tier: database
+spec:
+  serviceName: mysql  # 필수: StatefulSet이 사용할 Headless Service 이름
+  replicas: 1         # Pod 복제본 수 (MySQL 단일 인스턴스)
+  selector:           # 어떤 Pod를 관리할지 선택하는 기준
+    matchLabels:
+      app: mysql      # "app: mysql" 라벨이 있는 Pod를 관리합니다
+      tier: database  # "tier: database" 라벨이 있는 Pod를 관리합니다
+  template:           # Pod 생성에 사용할 템플릿
+    metadata:
+      labels:         # Pod에 붙일 라벨 (selector와 일치해야 함)
+        app: mysql
+        tier: database
+    spec:
+      containers:
+        - image: mariadb:10.4.16 # 사용할 도커 이미지 (MySQL과 호환되는 MariaDB)
+          args:
+            # 도커 이미지 버그를 피하기 위한 작업 around
+            - "--ignore-db-dir=lost+found" # Workaround for https://github.com/docker-library/mysql/issues/186
+          name: mysql            # 컨테이너 이름
+          env:                   # 컨테이너 환경변수 설정
+            - name: MYSQL_ROOT_PASSWORD
+              value: maria       # MySQL root 비밀번호 (실제로는 Secret 사용 권장)
+            #              valueFrom :       # 보안 주의: 실제 운영에서는 Secret 사용!
+            #                secretKeyRef :
+            #                  name : mysql-secrets
+            #                  key :  password
+
+            - name: MYSQL_DATABASE # 생성할 데이터베이스 이름
+              value: boot_db       # 데이터베이스 이름: boot_db
+          #              valueFrom :         # 설정 유연성: ConfigMap 사용 가능
+          #                configMapKeyRef :
+          #                  name : db-config
+          #                  key :  dbName
+
+          ports:                 # 컨테이너에서 열어줄 포트
+            - containerPort: 3306  # MySQL 기본 포트
+              name: mysql        # 포트 이름 (Service에서 연결할 때 사용)
+          volumeMounts:          # volumeClaimTemplates에서 생성된 저장소를 컨테이너에 연결
+            - name: mysql-data   # volumeClaimTemplates에서 정의한 이름
+              mountPath: /var/lib/mysql # 컨테이너 안에서 저장소가 보일 위치
+              # (MySQL이 데이터 파일 저장하는 기본 경로)
+  volumeClaimTemplates:  # StatefulSet 핵심 기능: 각 Pod마다 자동 PVC 생성
+    - metadata:
+        name: mysql-data   # PVC 템플릿 이름 (volumeMounts에서 사용)
+      spec:
+        accessModes:
+          - ReadWriteOnce   # 한번에 하나의 Pod만 읽기/쓰기 가능
+        resources:
+          requests:
+            storage: 1Gi  # 저장소 크기: 1GB 요청
+        # storageClassName: standard  # 필요시 스토리지클래스 명시 가능
+---
+# [Service: Headless Service for StatefulSet]
+# StatefulSet을 위한 Headless Service - Pod DNS 레코드 생성
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql        # 서비스 이름 (StatefulSet의 serviceName과 동일해야 함)
+  labels:
+    app: mysql
+    tier: database
+spec:
+  clusterIP: None    # ClusterIP 사용 안함 -> Headless Service
+  # DNS 조회시 Pod IP를 직접 반환 (mysql-0.mysql 형식)
+  ports:
+    - port: 3306        # 서비스가 열어줄 포트
+      targetPort: 3306  # 목적지: Pod의 3306포트로 연결
+      name: mysql       # 포트 이름
+  selector:             # 어떤 Pod에 연결할지 선택 기준
+    app: mysql          # "app: mysql" Pod에 연결
+    tier: database      # "tier: database" Pod에 연결
