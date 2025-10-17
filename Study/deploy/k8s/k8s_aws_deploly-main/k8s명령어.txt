@@ -128,15 +128,20 @@ kubectl exec -it pod/postgres-deployment-5786bcb8f8-785pz -- bash
 # 3. Bookmark REST API Service(Nodeport), Deployment 생성하기
 kubectl apply -f ./boot_react/3-bookmarker-api.yaml
 
+# EXTERNAL IP을 알아내기 위해 Node 의 IP 확인
+kubectl get node -o wide
 
 NodePort 서비스 요청하기
 SpringBoot
-http://34.70.247.76:30090/api/bookmarks
-http://34.42.73.32:30090/api/bookmarks
-http://34.27.221.173:30090/api/bookmarks
+http://136.115.188.126:30090/api/bookmarks
+http://34.134.96.13:30090/api/bookmarks
+http://34.71.84.19:30090/api/bookmarks
 
-LoadBalancer 서비스 Orders API 요청하기
-http://34.28.247.244:8080/api/bookmarks
+LoadBalancer 서비스 Bookmark API 요청하기
+http://35.202.99.109:8080/api/bookmarks
+
+# 4. Bookmark Nextjs Client Service(Nodeport), Deployment 생성하기
+kubectl apply -f ./boot_react/4-bookmarker-ui.yaml
 
 NodePort
 Nextjs 
@@ -145,12 +150,12 @@ http://34.42.73.32:30080
 
 LoadBalancer
 Nextjs
-http://34.42.169.112:3000
+http://34.58.32.215:3000
 
 
-kubectl create secret generic pdf-rag-secrets \
-  --from-literal=OPENAI_API_KEY="$(gcloud secrets versions access latest --secret=OPENAI_API_KEYS)"
+kubectl create secret generic pdf-rag-secrets --from-literal=OPENAI_API_KEY="$(gcloud secrets versions access latest --secret=OPENAI_API_KEY)"
 
+  
 kubectl apply -f ./k8s_python/1-config.yml
 kubectl apply -f ./k8s_python/2-deployment.yml
 kubectl apply -f ./k8s_python/3-service.yml
