@@ -46,52 +46,87 @@ kubectl top pods
 
 # MariaDB Service 생성하기
 kubectl apply -f ./objects/db-mysql-svc.yml
+
 # 객체 확인
 kubectl get all
 
 # Orders RESTAPI Deployment 생성하기
 kubectl apply -f ./objects/app-boot-deployment.yml
 
-# Orders RESTAPI Service (NodePort 타입) 생성하기
+# Orders RESTAPI Service(NodePort타입) 생성하기
 kubectl apply -f ./objects/app-boot-svc-nodeport.yml
 
 # service 확인
 kubectl get svc
 
-# service 접근을 위한 EXTERNAL - IP 확인하기
+# Service 접근을 위한 EXTERNAL-IP 확인하기
 kubectl get nodes -o wide
 
-# Orders RESTAPI Service (LoadBalancer 타입) 생성하기
+# Orders API url
+http://34.71.84.19:30090/orders
+
+# Orders RESTAPI Service(LoadBalancer 타입) 생성하기
 kubectl apply -f ./objects/app-boot-svc-loadbal.yml
 
-# service 확인하면 LoadBalancer 타입인 서비스의 IP가 보여짐
+# service 확인 하면 LoadBalancer 타입인 서비스의 IP가 보여짐
 kubectl get svc
 
 # Orders API url
-http://34.41.150.75:30090/orders
-
-http://34.121.142.244:8080/orders
+http://104.155.143.82:8080/orders
 
 # ConfigMap 오브젝트 생성하기
-kubectl apply -f ./object/mysql-configMap.yaml
+kubectl apply -f ./objects/mysql-configMap.yaml
 
-확인
 kubectl get cm
 
 # Secrets 오브젝트 생성하기
-kubectl apply -f ./object/mysql-secrets.yaml
+kubectl apply -f ./objects/mysql-secrets.yaml
 
-확인
 kubectl get secret
 
-#생성된 ConfigMap과 Secrets 객체를 사용하는 DB 디플로이먼트 객체 생성하기
-kubectl apply -f ./object/db-mysql-svc-secret.yml
+# 생성된 ConfigMap과 Secrets 객체를 사용하는 DB 디플로이먼트 객체 생성하기
+kubectl apply -f ./objects/db-mysql-svc-secret.yml
 
-#생성된 ConfigMap과 Secrets 객체를 사용하는 REST API 디플로이먼트 객체 생성하기
-kubectl apply -f ./object/app-boot-deployment-secret.yml
+# 생성된 ConfigMap과 Secrets 객체를 사용하는 REST API 디플로이먼트 객체 생성하기
+kubectl apply -f ./objects/app-boot-deployment-secret.yml
 
+# Nginx 파드와 PVC 생성하기
+kubectl apply -f ./objects/pvc-demo.yaml
+# PVC 확인
+kubectl get pvc
+# Pod 확인
+kubectl get po
 
+# Pod 내부로 들어가기
+kubectl exec -it pvc-demo-pod -- sh
+# Pod 삭제
+kubectl delete pod pvc-demo-pod
 
+# Pod 와 PVC 확인하기
+kubectl get po,pvc
+
+# PVC를 사용하는 MariaDB Deployment, Service 생성하기
+kubectl apply -f ./objects/0db-deployment.yaml
+
+# DB Pod 내부로 들어가기
+kubectl exec -it pod/mysql-deploy-7899f46554-4zs2w -- bash
+
+# PVC DB를 호출하는 REST API Deployment, Service 생성하기
+kubectl apply -f ./objects/0app-deployment.yaml
+
+http://34.71.84.19:30996/orders
+
+########### 3-tier Bookmark DB(Postgres), BackEnd, FrontEnd
+# 1. ConfigMap, Secret 생성하기
+kubectl apply -f ./boot_react/1-config.yaml
+
+# 2. Postgres DB Service, Deployment 생성하기
+kubectl apply -f ./boot_react/2-postgres-db-volume.yaml
+
+kubectl exec -it pod/postgres-deployment-5786bcb8f8-785pz -- bash
+
+# 3. Bookmark REST API Service(Nodeport), Deployment 생성하기
+kubectl apply -f ./boot_react/3-bookmarker-api.yaml
 
 
 NodePort 서비스 요청하기
@@ -100,7 +135,7 @@ http://34.70.247.76:30090/api/bookmarks
 http://34.42.73.32:30090/api/bookmarks
 http://34.27.221.173:30090/api/bookmarks
 
-LoadBalancer 서비스 요청하기
+LoadBalancer 서비스 Orders API 요청하기
 http://34.28.247.244:8080/api/bookmarks
 
 NodePort
