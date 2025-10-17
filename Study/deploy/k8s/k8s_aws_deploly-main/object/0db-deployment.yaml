@@ -20,21 +20,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
-  labels:
-    app: mysql
-    tier: database
+  name: mysql-deploy
 spec:
   selector:           # 어떤 Pod를 관리할지 선택하는 기준
     matchLabels:
-      app: mysql      # "app: mysql" 라벨이 있는 Pod를 관리합니다
+      app: mysql-pod      # "app: mysql" 라벨이 있는 Pod를 관리합니다
       tier: database  # "tier: database" 라벨이 있는 Pod를 관리합니다
   strategy:
     type: Recreate    # Pod 업데이트 방식: 먼저 다 끄고 새로 만듦 (데이터 안전)
   template:           # Pod 생성에 사용할 템플릿
     metadata:
       labels:         # Pod에 붙일 라벨 (위의 selector와 똑같이 맞춤)
-        app: mysql
+        app: mysql-pod
         tier: database
     spec:
       containers:
@@ -60,7 +57,7 @@ spec:
 
           ports:
             - containerPort: 3306
-              name: mysql      # 포트 이름 (Service에서 연결할 때 사용)
+              protocol: TCP
           volumeMounts:        # PVC에서 받은 저장소를 컨테이너에 연결
             - name: mysql-persistent-storage  # volumes에서 정의한 이름
               mountPath: /var/lib/mysql       # 컨테이너 안에서 저장소가 보일 위치
@@ -74,15 +71,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql  # 서비스 이름 (DNS에서 'mysql'로 접속 가능)
-  labels:
-    app: mysql
-    tier: database
+  name: mysql-svc  # 서비스 이름 (DNS에서 'mysql'로 접속 가능)
 spec:
   ports:
     - port: 3306        # 서비스가 열어줄 포트 (외부에서 접속하는 포트)
       targetPort: 3306  # 목적지: Pod의 3306포트로 연결
   selector:             # 어떤 Pod에 연결할지 선택 기준
-    app: mysql          # "app: mysql" Pod에 연결
+    app: mysql-pod          # "app: mysql" Pod에 연결
     tier: database      # "tier: database" Pod에 연결
   clusterIP: None       # ClusterIP 사용 안함 → Headless Service
