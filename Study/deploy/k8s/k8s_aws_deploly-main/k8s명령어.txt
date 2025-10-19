@@ -135,7 +135,7 @@ NodePort 서비스 요청하기
 SpringBoot
 http://136.115.188.126:30090/api/bookmarks
 http://34.134.96.13:30090/api/bookmarks
-http://34.71.84.19:30090/api/bookmarks
+http://34.71.84.19:30090/api/bookmarks 
 
 LoadBalancer 서비스 Bookmark API 요청하기
 http://35.202.99.109:8080/api/bookmarks
