@@ -11,7 +11,7 @@ WORKDIR /app
 ENV PATH=/app/node_modules/.bin:$PATH
 
 # 호스트의 package.json 파일을 컨테이너의 /app/package.json으로 복사
-COPY package.json /app/package.json
+COPY package.json /app/package.json 
 
 # package.json에 정의된 모든 의존성 패키지들을 설치
 RUN npm install
