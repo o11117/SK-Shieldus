@@ -5,7 +5,7 @@ import useDepartmentStore from '../store/departmentStore';
 const DepartmentComponent = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const isEdit = Boolean(id);
+  const isEdit = Boolean(id); 
 
   // Form state
   const [formData, setFormData] = useState({
